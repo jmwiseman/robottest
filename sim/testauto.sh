@@ -2,6 +2,6 @@
 #TODO:makefile
 cp ../include/robot.h ./
 echo Building autonomous simulation-----------------------------------------------------
-cc -o testauto ../src/opcontrol.c ../src/auto.c sim.c tank.c  -I ./ -lm
+gcc -g -o testauto ../src/opcontrol.c ../src/auto.c sim.c tank.c  field.c -I ./ -lm
 ./testauto
 

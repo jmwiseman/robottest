@@ -34,6 +34,7 @@
 
 #include "main.h"
 #include "../include/robot.h"
+#include "stdio.h"
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -83,14 +84,13 @@ void simple_linefollow() {
 }
 void autonomous() {
 	while(1) {
-		//printf("Sensor value: %d\n",analogRead(LS_LEFT));
+		printf("Sensor value: %d ",analogRead(LS_LEFT));
 		simple_linefollow();
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
 
-
-
+		printf(" OS yeild\n");
 		delay(20);
 	}
 
