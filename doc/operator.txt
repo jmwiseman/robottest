@@ -1,0 +1,12 @@
+The robot is driven using arcade controls on the right joystick on the first
+joypad (axis 1 is steering and axis 2 is forward/reverse).
+axis 3 controls the convayer (but it probably needs to be heavily scaled)
+button 7 up (should be 6 up) is /supposed/ to controll the launcher but were
+struggling with that.
+motors: see robot.h dont look here as this file wont be updated
+
+TODO
+	scale axis, the robot does not need to go that fast
+	soften motor acceleration (this probably needs multithreading)
+	all of the autonomous code
+	button for launcher

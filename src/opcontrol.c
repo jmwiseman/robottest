@@ -33,8 +33,9 @@
  */
 
 #include "main.h"
-#include "API.h"
-
+#include "../include/API.h"
+#include "../include/robot.h"
+void stopdrive();
 /*
  * Runs the user operator control code. This function will be started in its own task with the
  * default priority and stack size whenever the robot is enabled via the Field Management System
@@ -52,10 +53,57 @@
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
-void operatorControl() {
+int leftspeed,rightspeed;
+void setmotors(){ 
+	motorSet(MO_LEFT1,leftspeed);
+	motorSet(MO_LEFT2,leftspeed);
+	motorSet(MO_RIGHT1,rightspeed);
+	motorSet(MO_RIGHT2,rightspeed);
+}
+void controldrive(int turn, int forward) {
+	leftspeed=forward;
+		rightspeed=-1*forward;
+		leftspeed+=turn;
+		rightspeed+=turn;
+		setmotors();
+}
+void opdrive() {
+	int joyforward = (abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_FORWARD) : 0;//TODO: firgure out if this is cached or if we need to ourselves
+	int joyturn = (abs((joystickGetAnalog(1,JOY_TURN))) > JOY_DEAD) ? joystickGetAnalog(1,JOY_TURN) : 0;
+	controldrive(joyturn,joyforward);
+}
+void opconveyer() {
+	int cs;
+	//if(joystickGetDigital(1,6,JOY_UP)==true) {
+	motorSet(MO_CONVEYER1,cs=joystickGetAnalog(1,JOY_CONVEYER));
+	motorSet(MO_CONVEYER2,-cs);
+	//}
 
+}
+void drivestop() {
+	leftspeed=0;
+	rightspeed=0;
+	setmotors();
+}
+
+void opflywheel() {
+	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP)==true) {
+		motorSet(MO_FLY1,FLY_SPEED);
+		motorSet(MO_FLY2,-FLY_SPEED);
+	}else {
+		motorSet(MO_FLY1,0);
+		motorSet(MO_FLY2,0);
+	}
+}
+
+void operatorControl() {
+	autonomous();
 	while (1) {
-		motorSet(2,joystickGetAnalog(0,0));
+		opdrive();
+
+		opconveyer();
+		opflywheel();
 		delay(20);
+
 	}
 }
