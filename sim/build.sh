@@ -1,5 +1,8 @@
 #!/bin/bash
 #TODO:makefile
 
-cc -o isim ../src/opcontrol.c sim.c -I ./
+echo Interactive simulation-----------------------------------------------------
+cc -o isim ../src/opcontrol.c sim.c isim.c  -I ./
+echo Static testing simulation-------------------------------------------------
+#cc -o test ../src/opcontrol.c sim.c static.c test.c -I ./
 
