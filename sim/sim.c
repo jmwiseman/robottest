@@ -34,7 +34,7 @@ void sim_getjoyevents() {
 	}
 }
 int joystickGetAnalog (unsigned char joystick, unsigned char axis) {
-	return joy[axis][AXIS];
+	return joy[axis][AXIS]/100;
 }
 bool joystickGetDigital (unsigned char joystick, unsigned char axis) {
 	return joy[axis][BUTTON]==0; 

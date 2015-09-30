@@ -55,7 +55,7 @@
 void operatorControl() {
 
 	while (1) {
-		motorSet(2,50);
+		motorSet(2,joystickGetAnalog(0,0));
 		delay(20);
 	}
 }
