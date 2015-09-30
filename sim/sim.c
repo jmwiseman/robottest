@@ -8,7 +8,7 @@
 #include <stdbool.h>
 long sim_clock=0;
 void sim_delay(int ms) {
-	usleep(ms*10000);
+	//usleep(ms*10000);
 	sim_clock=sim_clock+ms;
 }
 void motorSet(int channel, int speed) {

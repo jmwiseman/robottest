@@ -4,5 +4,5 @@
 echo Interactive simulation-----------------------------------------------------
 cc -o isim ../src/opcontrol.c sim.c isim.c  -I ./
 echo Static testing simulation-------------------------------------------------
-#cc -o test ../src/opcontrol.c sim.c static.c test.c -I ./
+cc -o testrobot ../src/opcontrol.c sim.c static.c -I ./
 

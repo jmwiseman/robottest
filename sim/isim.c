@@ -41,6 +41,7 @@ void sim_ui()
 void sim_housekeeping()
 {
 	sim_ui();
+	usleep(1000*100);
 	sim_getjoyevents(); 
 }
 int main () {
