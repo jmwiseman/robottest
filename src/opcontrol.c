@@ -62,9 +62,9 @@ void setmotors(){
 void operatorControl() {
 
 	while (1) {
-		leftspeed=rightspeed=joystickGetAnalog(0,1);
-		leftspeed+=joystickGetAnalog(0,3);
-		rightspeed+=joystickGetAnalog(0,3)*-1;
+		leftspeed=rightspeed=joystickGetAnalog(1,1);
+		leftspeed+=joystickGetAnalog(1,3);
+		rightspeed+=joystickGetAnalog(1,3)*-1;
 		setmotors();
 		delay(20);
 	}
