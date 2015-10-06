@@ -52,7 +52,7 @@ void status() {
 	
 		if(axis==3) { //left right
 			if(
-			sign(sim_motors[1])!=sign(sim_motors[3]) && 
+			(sign(sim_motors[1])!=sign(sim_motors[3])||(value==0&&sim_motors[3]==0)) && 
 			sign(sim_motors[1])==sign(value)) {
 				pass=1;
 			}else 
