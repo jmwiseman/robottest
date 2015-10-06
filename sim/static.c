@@ -37,7 +37,7 @@ void status() {
 	(sim_motors[1] != sim_motors[2])||
 	(sim_motors[3] != sim_motors[4])) {
 		printf("Mortors are fighting against eachother!!");
-		bad=bad+1;
+		bad=bad+1;//bad is not for failed test cases, it's extra
 		pass=-1;
 	}else {
 		if(axis==1) { //forward backward
@@ -45,7 +45,6 @@ void status() {
 			sign(sim_motors[1])==sign(sim_motors[3]) && 
 			sign(sim_motors[1])==sign(value)) {
 				pass=1;
-				good=good+1;
 			}else 
 				pass=-1;
 
@@ -56,7 +55,6 @@ void status() {
 			sign(sim_motors[1])!=sign(sim_motors[3]) && 
 			sign(sim_motors[1])==sign(value)) {
 				pass=1;
-				good=good+1;
 			}else 
 				pass=-1;
 			
@@ -67,8 +65,10 @@ void status() {
 	sim_motors[2],
 	sim_motors[3],
 	sim_motors[4]);
-	if(pass>=0)
+	if(pass>=0){
 		printf("\tPass\n");
+		good=good+1;
+	}
 	else
 		printf("\tFail\n");
 }
