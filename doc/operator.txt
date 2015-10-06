@@ -5,7 +5,7 @@ motors 1,2,3,4 drive
      |   |
      2   4
      =====
-3 and 4 are reversed
+3 and 4 are not reversed, they probably should be as this would make the mechanical design symetrical.
 
 motors 5, (6?) suck up balls?
 motor 7 runs track
