@@ -16,9 +16,10 @@ joystic axis for operator mode:
 1 2 3 4 5 6 
 
 2 and 4 are meaningless
+sort of tank steering with mario kirby air ride style controlls
 1+ forward
 1- backward
-3+ all motors +
-3- all motors -
+3+ all motors turn (left?)
+3- all motors turn (right?)
 
 

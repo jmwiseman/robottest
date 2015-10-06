@@ -67,7 +67,7 @@ void status() {
 	sim_motors[2],
 	sim_motors[3],
 	sim_motors[4]);
-	if(pass>0)
+	if(pass>=0)
 		printf("\tPass\n");
 	else
 		printf("\tFail\n");

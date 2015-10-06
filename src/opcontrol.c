@@ -52,10 +52,20 @@
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+int leftspeed,rightspeed;
+void setmotors(){ 
+	motorSet(1,leftspeed);
+	motorSet(2,leftspeed);
+	motorSet(3,rightspeed);
+	motorSet(4,rightspeed);
+}
 void operatorControl() {
 
 	while (1) {
-		motorSet(2,joystickGetAnalog(0,0));
+		leftspeed=rightspeed=joystickGetAnalog(1,0);
+		leftspeed+=joystickGetAnalog(3,0);
+		rightspeed+=joystickGetAnalog(3,0)*-1;
+		setmotors
 		delay(20);
 	}
 }
