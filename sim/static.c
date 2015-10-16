@@ -40,7 +40,7 @@ void status() {
 		bad=bad+1;//bad is not for failed test cases, it's extra
 		pass=-1;
 	}else {
-		if(axis==1) { //forward backward
+		if(axis==2) { //forward backward
 			if(
 			sign(sim_motors[1])==sign(sim_motors[3]) && 
 			sign(sim_motors[1])==sign(value)) {
@@ -50,7 +50,7 @@ void status() {
 
 		}
 	
-		if(axis==3) { //left right
+		if(axis==1) { //left right
 			if(
 			(sign(sim_motors[1])!=sign(sim_motors[3])||(value==0&&sim_motors[3]==0)) && 
 			sign(sim_motors[1])==sign(value)) {
