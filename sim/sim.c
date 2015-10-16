@@ -18,8 +18,8 @@ void motorSet(int channel, int speed) {
 int joystickGetAnalog (unsigned char joystick, unsigned char axis) {
 	return joy[axis][AXIS]/100;
 }
-bool joystickGetDigital (unsigned char joystick, unsigned char axis) {
-	return joy[axis][BUTTON]==0; 
+bool joystickGetDigital (unsigned char joystick, unsigned char axis, unsigned char group) {
+	return joy[axis+(group*4)][BUTTON]==0; 
 }
 void delay(int t) {
 	sim_delay(t);

@@ -34,10 +34,7 @@
 
 #include "main.h"
 #include "API.h"
-
-#define JOY_TURN 1
-#define JOY_FORWARD 2
-
+#include "robot.h"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -58,18 +55,34 @@
  */
 int leftspeed,rightspeed;
 void setmotors(){ 
-	motorSet(1,leftspeed);
-	motorSet(2,leftspeed);
-	motorSet(10,rightspeed);
-	motorSet(4,rightspeed);
+	motorSet(MO_LEFT1,leftspeed);
+	motorSet(MO_LEFT2,leftspeed);
+	motorSet(MO_RIGHT1,rightspeed);
+	motorSet(MO_RIGHT2,rightspeed);
+}
+void opdrive() {
+	leftspeed=rightspeed=joystickGetAnalog(1,JOY_FORWARD);
+	leftspeed+=joystickGetAnalog(1,JOY_TURN);
+	rightspeed+=joystickGetAnalog(1,JOY_TURN)*-1;
+	setmotors();
+}
+void opconveyer() {
+	int cs;
+	motorSet(MO_CONVEYER1,cs=joystickGetAnalog(1,JOY_CONVEYER));
+	motorSet(MO_CONVEYER2,-cs);
+
+}
+void flywheel() {
+	if(joystickGetDigital(1,6,JOY_UP)) {
+		motorSet(MO_FLY1,FLY_SPEED);
+		motorSet(MO_FLY2,-FLY_SPEED);
+	}
 }
 void operatorControl() {
 
 	while (1) {
-		leftspeed=rightspeed=joystickGetAnalog(1,JOY_FORWARD);
-		leftspeed+=joystickGetAnalog(1,JOY_TURN);
-		rightspeed+=joystickGetAnalog(1,JOY_TURN)*-1;
-		setmotors();
+		opdrive();
+		opconveyer();
 		delay(20);
 	}
 }

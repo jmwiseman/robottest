@@ -23,3 +23,6 @@ sort of tank steering with mario kirby air ride style controlls
 3- backward
 
 
+
+axis 3 controlls the conveyer
+button 6 controlls the flywheel (eventually we want to have an encoder here)
