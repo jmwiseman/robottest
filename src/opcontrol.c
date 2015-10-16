@@ -35,6 +35,10 @@
 #include "main.h"
 #include "API.h"
 
+#define JOY_TURN 1
+#define JOY_FORWARD 2
+
+
 /*
  * Runs the user operator control code. This function will be started in its own task with the
  * default priority and stack size whenever the robot is enabled via the Field Management System
@@ -56,15 +60,15 @@ int leftspeed,rightspeed;
 void setmotors(){ 
 	motorSet(1,leftspeed);
 	motorSet(2,leftspeed);
-	motorSet(3,rightspeed);
+	motorSet(10,rightspeed);
 	motorSet(4,rightspeed);
 }
 void operatorControl() {
 
 	while (1) {
-		leftspeed=rightspeed=joystickGetAnalog(1,1);
-		leftspeed+=joystickGetAnalog(1,3);
-		rightspeed+=joystickGetAnalog(1,3)*-1;
+		leftspeed=rightspeed=joystickGetAnalog(1,JOY_FORWARD);
+		leftspeed+=joystickGetAnalog(1,JOY_TURN);
+		rightspeed+=joystickGetAnalog(1,JOY_TURN)*-1;
 		setmotors();
 		delay(20);
 	}

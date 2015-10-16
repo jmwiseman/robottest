@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <linux/input.h>
-#include <linux/joystick.h>
-#include <unistd.h>
+//#include <linux/input.h>
+//#include <linux/joystick.h>
+//#include <unistd.h>
 #include <fcntl.h>
 #include <sim.h>
 #include <stdbool.h>
