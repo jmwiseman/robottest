@@ -33,8 +33,8 @@
  */
 
 #include "main.h"
-#include "API.h"
-#include "robot.h"
+#include "../include/API.h"
+#include "../include/robot.h"
 
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -68,21 +68,29 @@ void opdrive() {
 }
 void opconveyer() {
 	int cs;
+	//if(joystickGetDigital(1,6,JOY_UP)==true) {
 	motorSet(MO_CONVEYER1,cs=joystickGetAnalog(1,JOY_CONVEYER));
 	motorSet(MO_CONVEYER2,-cs);
+	//}
 
 }
-void flywheel() {
-	if(joystickGetDigital(1,6,JOY_UP)) {
+void opflywheel() {
+	if(joystickGetDigital(1,6,JOY_UP)==true) {
 		motorSet(MO_FLY1,FLY_SPEED);
 		motorSet(MO_FLY2,-FLY_SPEED);
+	}else {
+		motorSet(MO_FLY1,0);
+		motorSet(MO_FLY2,0);
 	}
 }
+
 void operatorControl() {
 
 	while (1) {
 		opdrive();
 		opconveyer();
+		opflywheel();
 		delay(20);
+		//autonomous();
 	}
 }
