@@ -1,0 +1,9 @@
+we currently are just startung out with the line following code which will
+make up the majority of the navigation
+I plan on bringing the vishay IR transivers to the upcoming meeting so we can
+start on the becon based navigation code to supplement this
+see robot.h for sensor connections
+we talked about using ultrasonic sensors earlier and will probably use them so
+we dont have to run the conveyer and launcher all the time which will wear on
+the batteries.
+

@@ -1,28 +1,12 @@
-motors 1,2,3,4 drive
+The robot is driven using arcade controls on the right joystick on the first
+joypad (axis 1 is steering and axis 2 is forward/reverse).
+axis 3 controls the convayer (but it probably needs to be heavily scaled)
+button 7 up (should be 6 up) is /supposed/ to controll the launcher but were
+struggling with that.
+motors: see robot.h dont look here as this file wont be updated
 
- ^    ---
-     1   3
-     |   |
-     2   10
-     =====
-3 and 4 are not reversed, they probably should be as this would make the mechanical design symetrical.
-
-motors 5, (6?) suck up balls?
-motor 7 runs track
-motor 8 (do high speed motors use the servo ports?do high speed motors have encoders?) runs fly wheel
-the gate should probably be actuated by a servo, in which case it would be in port 9, on October 29 we talked about using a solenoid instead, this would use a GP-IO pin instead.
-
-joystic axis for operator mode:
-1 2 3 4 5 6 
-
-2 and 4 are meaningless
-sort of tank steering with mario kirby air ride style controlls
-1+ left turn
-1- right turn
-3+ forward
-3- backward
-
-
-
-axis 3 controlls the conveyer
-button 6 controlls the flywheel (eventually we want to have an encoder here)
+TODO
+	scale axis, the robot does not need to go that fast
+	soften motor acceleration (this probably needs multithreading)
+	all of the autonomous code
+	button for launcher
