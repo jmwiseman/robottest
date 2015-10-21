@@ -72,13 +72,13 @@ int asense() {
 void simple_linefollow() {
 	int sensed=asense();
 	if(sensed && LS_B_L) {
-		controldrive(100,100);
+		controldrive(AUTOSPEED,AUTOSPEED);
 	}
 	if(sensed && LS_B_R) {
-			controldrive(-100,100);
+			controldrive(-AUTOSPEED,AUTOSPEED);
 	}
 	if(sensed && LS_B_C) {
-			controldrive(0,100);
+			controldrive(AUTOSPEED,AUTOSPEED);
 	}
 }
 void autonomous() {
