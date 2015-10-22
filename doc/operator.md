@@ -20,5 +20,5 @@ joystic axis for operator mode:
 1- backward
 3+ all motors +
 3- all motors -
-
+TODO: match official joyaxis
 
