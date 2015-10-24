@@ -33,8 +33,8 @@
  */
 
 #include "main.h"
-#include "../include/API.h"
-#include "../include/robot.h"
+#include <API.h>
+#include <../include/robot.h>
 void stopdrive();
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -87,7 +87,7 @@ void drivestop() {
 }
 
 void opflywheel() {
-	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP)==true) {
+	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true) {
 		motorSet(MO_FLY1,FLY_SPEED);
 		motorSet(MO_FLY2,-FLY_SPEED);
 	}else {
@@ -95,9 +95,8 @@ void opflywheel() {
 		motorSet(MO_FLY2,0);
 	}
 }
-
 void operatorControl() {
-	autonomous();
+	//autonomous();
 	while (1) {
 		opdrive();
 

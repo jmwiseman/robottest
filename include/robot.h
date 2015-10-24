@@ -1,18 +1,19 @@
 #define JOY_TURN 1
 #define JOY_FORWARD 2
 #define JOY_CONVEYER 3
-#define JOY_FLYWHEEL 7
+#define JOY_FLYWHEEL 6
 #define JOY_DEAD 20
+#define JOY_SCALE 2
 //#define MO_CONVEYER1 1
 //#define MO_CONVEYER2 10
 #define MO_CONVEYER1 8
-#define MO_CONVEYER2 10
+#define MO_CONVEYER2 9
 #define MO_LEFT1 2
 #define MO_LEFT2 4
 #define MO_RIGHT1 3
 #define MO_RIGHT2 5
 
-#define FLY_SPEED 128
+#define FLY_SPEED 255
 
 #define MO_FLY1 6
 #define MO_FLY2 7
