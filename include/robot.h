@@ -24,3 +24,5 @@
 #define LS_B_L 0b10000000
 #define LS_B_C 0b01000000
 #define LS_B_R 0b00100000
+#define AUTOSPEED 64
+
