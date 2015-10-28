@@ -49,10 +49,10 @@
  * The autonomous task may exit, unlike operatorControl() which should never exit. If it does
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
-
+int lss[3];
 #define lthreshold 20
 void controldrive(int turn, int forward);
-int asense() {
+int *asense() {//NOT THREAD SAFE
 	int als=0;
 	int ls[3];
 	int i=0;
@@ -60,13 +60,11 @@ int asense() {
 	ls[1]=analogRead(LS_CENTER);
 	ls[2]=analogRead(LS_RIGHT);
 	int average=(ls[0]+ls[1]+ls[2])/3;
-	for( i; i<3;i++){
-		if(ls[i]>=average+lthreshold){
-			als=LS_B_L>>i;
-		}
+	for( i=0; i<3;i++){
+			lss[i]=ls[i]-average;
 	}
 
-	return als;
+	return &lss[0];
 }
 
 void simple_linefollow() {
@@ -81,9 +79,13 @@ void simple_linefollow() {
 			controldrive(AUTOSPEED,AUTOSPEED);
 	}
 }
+void turntoline () {
+	//while(*(asense())<0-lsthreshold) controldrive(AUTOSPEED,0);
+}
 void autonomous() {
 	while(1) {
 		//printf("Sensor value: %d\n",analogRead(LS_LEFT));
+		turntoline();
 		simple_linefollow();
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);

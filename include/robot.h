@@ -4,10 +4,15 @@
 #define JOY_FLYWHEEL 6
 #define JOY_DEAD 20
 #define JOY_SCALE 2
+
 //#define MO_CONVEYER1 1
 //#define MO_CONVEYER2 10
 #define MO_CONVEYER1 8
 #define MO_CONVEYER2 9
+#define B_CONVEYER 5
+#define CONVEYER_SPEED 150
+#define CONVEYER_SPEED2 200
+
 #define MO_LEFT1 2
 #define MO_LEFT2 4
 #define MO_RIGHT1 3

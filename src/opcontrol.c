@@ -33,7 +33,7 @@
  */
 
 #include "main.h"
-#include <API.h>
+#include <../include/API.h>
 #include <../include/robot.h>
 void stopdrive();
 /*
@@ -74,10 +74,17 @@ void opdrive() {
 }
 void opconveyer() {
 	int cs;
-	//if(joystickGetDigital(1,6,JOY_UP)==true) {
-	motorSet(MO_CONVEYER1,cs=joystickGetAnalog(1,JOY_CONVEYER));
+
+	if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
+		cs=CONVEYER_SPEED;
+	}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+		cs=-CONVEYER_SPEED;
+	}else {
+		cs=0;
+	}
+	motorSet(MO_CONVEYER1,cs);
 	motorSet(MO_CONVEYER2,-cs);
-	//}
+
 
 }
 void drivestop() {
