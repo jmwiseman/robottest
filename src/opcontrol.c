@@ -90,7 +90,7 @@ void opintake() {
 
 }
 
-void drivestop() {
+void drivestop() {\
 	leftspeed=0;
 	rightspeed=0;
 	setmotors();
