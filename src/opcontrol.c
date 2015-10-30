@@ -106,7 +106,7 @@ void opflywheel() {
 	}
 }
 void operatorControl() {
-	//autonomous();
+	autonomous();
 	while (1) {
 		opdrive();
 

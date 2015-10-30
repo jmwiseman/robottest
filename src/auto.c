@@ -34,7 +34,7 @@
 
 #include "main.h"
 #include "../include/robot.h"
-#include "stdio.h"
+//#include "stdio.h"
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -69,17 +69,15 @@ int *asense() {//NOT THREAD SAFE
 }
 
 void simple_linefollow() {
-	int sensed=asense();
-	if(sensed && LS_B_L) {
-		controldrive(AUTOSPEED,AUTOSPEED);
-	}
-	if(sensed && LS_B_R) {
-			controldrive(-AUTOSPEED,AUTOSPEED);
-	}
-	if(sensed && LS_B_C) {
-			controldrive(AUTOSPEED,AUTOSPEED);
-	}
+	//lss[0] == *ls
+	//lss[n] == *(ls+n)
+	int *ls=asense();
+	//if(abs(*(ls+1))>threshold)
+	//{
+
+	//}
 }
+
 void turntoline () {
 	//while(*(asense())<0-lsthreshold) controldrive(AUTOSPEED,0);
 }
@@ -97,6 +95,7 @@ void autonomous() {
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
 
+		printf("%d\r\n",analogRead(LS_LEFT));
 		//printf(" OS yeild\n");
 		delay(20);
 	}
