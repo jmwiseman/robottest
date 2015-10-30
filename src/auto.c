@@ -94,10 +94,10 @@ void autonomous() {
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
-
-		printf("%d\r\n",analogRead(LS_LEFT));
+		asense();
+		printf("%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d\r\n", analogRead(LS_LEFT), analogRead(LS_CENTER), analogRead(LS_RIGHT), lss[0], lss[1], lss[2]);
 		//printf(" OS yeild\n");
-		delay(20);
+		delay(200);
 	}
 
 }

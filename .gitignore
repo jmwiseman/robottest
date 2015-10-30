@@ -1,0 +1,5 @@
+*.exe
+*.o
+sim/testauto.exe
+*.bin
+bin/output.elf
