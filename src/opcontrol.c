@@ -84,9 +84,12 @@ void opconveyer() {
 	}
 	motorSet(MO_CONVEYER1,cs);
 	motorSet(MO_CONVEYER2,-cs);
-
+}
+void opintake() {
+	motorSet(MO_INTAKE,(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_INTAKE) : 0);
 
 }
+
 void drivestop() {
 	leftspeed=0;
 	rightspeed=0;
@@ -107,6 +110,7 @@ void operatorControl() {
 	while (1) {
 		opdrive();
 
+		opintake();
 		opconveyer();
 		opflywheel();
 		delay(20);

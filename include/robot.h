@@ -13,7 +13,6 @@
 #define CONVEYER_SPEED 150
 
 #define MO_INTAKE 10
-#define INTAKE_SPEED 150
 
 #define MO_LEFT1 2
 #define MO_LEFT2 4
