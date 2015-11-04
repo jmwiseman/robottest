@@ -86,7 +86,12 @@ void opconveyer() {
 	motorSet(MO_CONVEYER2,-cs);
 }
 void opintake() {
-	motorSet(MO_INTAKE,(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_INTAKE) : 0);
+
+	if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
+		motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
+	}else {
+		motorSet(MO_INTAKE,0);
+	}
 
 }
 
@@ -106,7 +111,7 @@ void opflywheel() {
 	}
 }
 void operatorControl() {
-	autonomous();
+//	autonomous();
 	while (1) {
 		opdrive();
 
