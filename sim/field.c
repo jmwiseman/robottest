@@ -10,13 +10,18 @@ typedef struct tapeline {
 tapeline field[8];
 double ldist(double x,double y,tapeline l){
 	double m=(l.y2-l.y1)/(l.x2-l.x1);
-	double b= l.y1/(m*l.x1); //y=mx+b => y/mx=b
+	double b;
+	if (l.x1!=0)
+		b= l.y1/(m*l.x1); //y=mx+b => y/mx=b
+	else
+		 b=0;
 	//
 	//distance function: d^2=(x2-x1)^2 + (y2-y1)^2
 	//the distance between a  functin and a point will be the min [ distance(pt,f(x))] 
 	//√(p-f(x))^ 2
 	//0 = x^2 +mx +2mp.y -b+2p.x +1
 	//
+	
 	double r= (x - m*b +m*y)/(m*m+1);
 	printf("distance: %f\n\n",r);
 	
