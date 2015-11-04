@@ -17,8 +17,9 @@ double ldist(double x,double y,tapeline l){
 	//√(p-f(x))^ 2
 	//0 = x^2 +mx +2mp.y -b+2p.x +1
 	//
-	double r=(-m+ sqrt(m*m -4*(2*m*y-b+2*y+1)))/2;
-	printf("distance: %f\n",r);
+	double r= (x - m*b +m*y)/(m*m+1);
+	printf("distance: %f\n\n",r);
+	
 	return r;
 }
 
