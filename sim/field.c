@@ -11,13 +11,23 @@ tapeline field[8];
 double ldist(double x,double y,tapeline l){
 	double m=(l.y2-l.y1)/(l.x2-l.x1);
 	double b= l.y1/(m*l.x1); //y=mx+b => y/mx=b
-	//distance function: roo((x2-x1)^2 - (y2-y1)^2)
+	//
+	//distance function: d^2=(x2-x1)^2 + (y2-y1)^2
 	//the distance between a  functin and a point will be the min [ distance(pt,f(x))] 
-	//so d/dx[sqrt(x2-((y-b)/m)-(y2-(mx+b)))]=0
-	double r=0;
+	//√(p-f(x))^ 2
+	//0 = x^2 +mx +2mp.y -b+2p.x +1
+	//
+	double r=(-m+ sqrt(m*m -4*(2*m*y-b+2*y+1)))/2;
+	printf("distance: %f\n",r);
 	return r;
 }
 
 void sim_setsensors(tank *v) {
 	v->battery=v->battery-0.0001;
+	tapeline t;
+	t.x1=0;
+	t.x2=1;
+	t.y1=0;
+	t.y2=1;
+	analogs[1]=ldist(v->x,v->y,t);
 }

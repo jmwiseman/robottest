@@ -12,10 +12,10 @@
 #define B_CONVEYER 5
 #define CONVEYER_SPEED 150
 
-#define MO_INTAKE 10
+#define MO_INTAKE 4
 
 #define MO_LEFT1 2
-#define MO_LEFT2 4
+#define MO_LEFT2 2
 #define MO_RIGHT1 3
 #define MO_RIGHT2 5
 
