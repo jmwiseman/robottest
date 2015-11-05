@@ -56,9 +56,9 @@ void stopdrive();
 int leftspeed,rightspeed;
 void setmotors(){ 
 	motorSet(MO_LEFT1,leftspeed);
-	motorSet(MO_LEFT2,leftspeed);
+	motorSet(MO_LEFT2,leftspeed);  //TODO: OMG ROBERT
 	motorSet(MO_RIGHT1,rightspeed);
-	motorSet(MO_RIGHT2,rightspeed);
+	motorSet(MO_RIGHT2,-rightspeed);
 }
 void controldrive(int turn, int forward) {
 	leftspeed=forward;
@@ -73,29 +73,35 @@ void opdrive() {
 	controldrive(joyturn,joyforward);
 }
 void opconveyer() {
+
+}
+void opintake() {
 	int cs;
 
-	if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
-		cs=CONVEYER_SPEED;
-	}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+	if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
+	//if(abs(joystickGetDigital(1,JOY_INTAKE_B,JOY_UP))){
+		motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
 		cs=-CONVEYER_SPEED;
 	}else {
-		cs=0;
+		motorSet(MO_INTAKE,0);
+		if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
+			cs=CONVEYER_SPEED;
+		}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+			cs=-CONVEYER_SPEED;
+		}else {
+			cs=0;
+		}
+
 	}
 	motorSet(MO_CONVEYER1,cs);
 	motorSet(MO_CONVEYER2,-cs);
-}
-void opintake() {
 
-	if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
-		motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
-	}else {
-		motorSet(MO_INTAKE,0);
-	}
+
+
 
 }
 
-void drivestop() {\
+void drivestop() {
 	leftspeed=0;
 	rightspeed=0;
 	setmotors();
@@ -111,7 +117,7 @@ void opflywheel() {
 	}
 }
 void operatorControl() {
-//	autonomous();
+	//autonomous();
 	while (1) {
 		opdrive();
 
