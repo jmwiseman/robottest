@@ -9,7 +9,10 @@ typedef struct tank {
 	double lspeed,rspeed;
 	double width;//not necesary?
 	double battery;
+	double lsoffset;
+	double lswidth;
 } tank;
 tank timothy;
 void sim_setsensors(tank *v);
+
 

@@ -2,6 +2,7 @@
 #include "../include/robot.h"
 #include <tank.h>
 #include <sim.h>
+#include <field.h>
 double scale=0.01;
 int simtank(tank *v) {
 	//the change in heading is the difference of the speeds
@@ -18,8 +19,8 @@ void plottank(tank *v) {
 }
 void controltank(tank *v) {
 	v->battery=v->battery-0.001;
-	v->lspeed=sim_motors[MO_LEFT1]/10; //TODO: this needs pi somewhere
-	v->rspeed=sim_motors[MO_RIGHT1]/10;
+	v->lspeed=sim_motors[MO_LEFT1]/100; //TODO: this needs pi somewhere
+	v->rspeed=sim_motors[MO_RIGHT1]/100;
 }
 
 void simloop(tank *v){
@@ -52,8 +53,11 @@ void sim_housekeeping() {
 
 }
 void siminit() {
-	timothy.battery=100;
+	timothy.battery=150;
+	timothy.lsoffset=0.5;
+	timothy.lswidth=0.01;
 	initplot();
+	initfield();
 }
 int main() {
 	siminit();

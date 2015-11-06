@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sim.h>
 #include <math.h>
+#include "robot.h"
 #define SIMTIME 1000
 int axis;
 int value;
@@ -60,7 +61,7 @@ void status() {
 	
 		if(axis==1) { //left right
 			if(
-			(sign(sim_motors[1])!=sign(sim_motors[3])||(value==0&&sim_motors[3]==0)) && 
+			(sign(sim_motors[MO_LEFT1])!=sign(sim_motors[MO_RIGHT1])||(value==0&&sim_motors[MO_RIGHT1]==0)) && 
 			sign(sim_motors[1])==sign(value)) {
 				pass=1;
 			}else 
@@ -69,10 +70,10 @@ void status() {
 		}
 	}//motor fight else
 	printf("Good: %d Bad: %d Drive Motors: %d %d %d %d \n ",good,bad,
-	sim_motors[1],
-	sim_motors[2],
-	sim_motors[3],
-	sim_motors[4]);
+	sim_motors[MO_LEFT1],
+	sim_motors[MO_LEFT2],
+	sim_motors[MO_RIGHT1],
+	sim_motors[MO_RIGHT1]);
 	if(pass>=0){
 		printf("\tPass\n");
 		good=good+1;
