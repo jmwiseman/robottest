@@ -9,9 +9,7 @@ int bad=0;
 int good=0;
 int iterations;
 //static tests
-<<<<<<< HEAD
 int axis,value=0;
-=======
 int sign (int a) {
 	if(a==0)
 		return 0; //+1!=0!=-1
@@ -25,7 +23,6 @@ void die(char *a) {
 		printf("some failures\n");
 	exit(0);
 }
->>>>>>> 451eea668f9d54ad0d2469e3d2f0d888e222ff4c
 void sim_nextjoy() {
 	axis=(sim_clock/20)%5;
 	value=(((sim_clock/40)%3)*200)-200;
@@ -36,29 +33,25 @@ void sim_nextjoy() {
 	printf("time: %ld axis:%d value:%d\n",sim_clock,axis,value);
 	
 }
-<<<<<<< HEAD
 void checkmotors(){
 	/*1+ forward
 	 *  20 1- backward
 	 *   21 3+ all motors +
 	 *    22 3- all motors - */
 }
-void sim_housekeeping() {
-	checkmotors();
-=======
 void status() {
 	int pass=0;
 	if(
-	(sim_motors[1] != sim_motors[2])||
-	(sim_motors[3] != sim_motors[4])) {
+	(sim_motors[MO_LEFT1] != sim_motors[MO_RIGHT1])||
+	(sim_motors[MO_LEFT2] != sim_motors[MO_RIGHT2])) {
 		printf("Mortors are fighting against eachother!!");
 		bad=bad+1;//bad is not for failed test cases, it's extra
 		pass=-1;
 	}else {
 		if(axis==2) { //forward backward
 			if(
-			sign(sim_motors[1])==sign(sim_motors[3]) && 
-			sign(sim_motors[1])==sign(value)) {
+			sign(sim_motors[MO_LEFT1])==sign(sim_motors[MO_RIGHT1]) && 
+			sign(sim_motors[MO_LEFT1])==sign(value)) { 
 				pass=1;
 			}else 
 				pass=-1;
@@ -90,7 +83,6 @@ void status() {
 void sim_housekeeping() {
 	iterations+=1;
 	status();
->>>>>>> 451eea668f9d54ad0d2469e3d2f0d888e222ff4c
 	sim_nextjoy();
 	if(sim_clock>SIMTIME){
 		die("done");
