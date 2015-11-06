@@ -51,7 +51,11 @@
  * so, the robot will await a switch to another mode or disable/enable cycle.
  */
 int lss[3];
-#define lthreshold 20
+int going=1;
+#define LSAMPLE_LEN
+int lsamples[LSAMPLE_LEN];
+int lstav;
+#define lthreshold 100
 void controldrive(int turn, int forward);
 int *asense() {//NOT THREAD SAFE
 	int als=0;
@@ -64,6 +68,7 @@ int *asense() {//NOT THREAD SAFE
 	for( i=0; i<3;i++){
 			lss[i]=ls[i]-average;
 	}
+	//for(i=0; i<LSAMPLE_LEN)
 
 	return &lss[0];
 }
@@ -72,10 +77,18 @@ void simple_linefollow() {
 	//lss[0] == *ls
 	//lss[n] == *(ls+n)
 	int *ls=asense();
-	//if(abs(*(ls+1))>threshold)
-	//{
-
-	//}
+	printf("\t%d",*(ls+1));
+	if(abs(*(ls+1))>lthreshold)
+	{
+		printf("line");
+		going=0;
+	}
+	else
+		going=1;
+	if(going==1)
+		controldrive(20, 70);
+	else
+		controldrive(0,0);
 }
 
 void turntoline () {
@@ -85,12 +98,13 @@ void driveincircle() {
 	controldrive(-AUTOSPEED,AUTOSPEED);
 }
 void autonomous() {
+	going=1;
 	while(1) {
 		//printf("Sensor value: %d ",analogRead(LS_LEFT));
 		//printf("Sensor value: %d\n",analogRead(LS_LEFT));
-		driveincircle();
+		//driveincircle();
 		//turntoline();
-		//simple_linefollow();
+		simple_linefollow();
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
