@@ -56,6 +56,8 @@ int going=1;
 int lsamples[LSAMPLE_LEN];
 int lstav;
 #define lthreshold 100
+
+
 void controldrive(int turn, int forward);
 int *asense() {//NOT THREAD SAFE
 	int als=0;
@@ -91,6 +93,79 @@ void simple_linefollow() {
 		controldrive(0,0);
 }
 
+
+//elijah_linefollow() driving functions
+void drive_straight()
+{
+	controldrive(MAX_SPEED,MAX_SPEED);
+}
+//bank functions
+void bank_right()
+{
+	controldrive(BANK_VALUE,MAX_SPEED);
+}
+void bank_left()
+{
+	controldrive(-BANK_VALUE,MAX_SPEED);
+}
+//sharper bank functions
+void turn_right()
+{
+	controldrive(MAX_SPEED,MAX_SPEED);
+}
+void turn_left()
+{
+	controldrive(-MAX_SPEED,MAX_SPEED);
+}
+void search_for_line()
+{
+	bank_right();//TODO: change this to what it would actually be
+}
+
+void elijah_linefollow()
+{
+	int *ls=asense();
+	int right = abs(*(ls))>lthreshold;
+	int middle = abs(*(ls+1))>lthreshold;
+	int left = abs(*(ls+1))>lthreshold;
+
+	//no sensors
+	if (!left && !middle && !right)
+	{
+		search_for_line();
+	}
+	//single sensor
+	if (left && !middle && !right)
+	{
+		bank_left();
+	}
+	if (middle && !right && !left)
+	{
+		drive_straight();
+	}
+	if (right && !left && !middle)
+	{
+		bank_right();
+	}
+	//two sensors
+	if (left && middle && !right)
+	{
+		turn_right();
+	}
+	if (middle && right && !left)
+	{
+		turn_left();
+	}
+	//all three sensors
+	if (right && left && middle)
+	{
+		turn_right();
+	}
+}
+
+
+
+
 void turntoline () {
 	//while(*(asense())<0-lsthreshold) controldrive(AUTOSPEED,0);
 }
@@ -104,14 +179,22 @@ void autonomous() {
 		//printf("Sensor value: %d\n",analogRead(LS_LEFT));
 		//driveincircle();
 		//turntoline();
-		simple_linefollow();
+		//simple_linefollow();
+		if(abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD)
+		{
+			elijah_linefollow();
+		}
+		else
+		{
+			controldrive(0,0);
+		}
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
 		asense();
 		printf("%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d\r\n", analogRead(LS_LEFT), analogRead(LS_CENTER), analogRead(LS_RIGHT), lss[0], lss[1], lss[2]);
 		//printf(" OS yeild\n");
-		delay(200);
+		delay(20);
 	}
 
 }

@@ -57,15 +57,16 @@ int leftspeed,rightspeed;
 void setmotors(){ 
 	motorSet(MO_LEFT1,leftspeed);
 	motorSet(MO_LEFT2,leftspeed);  //TODO: OMG ROBERT
-	motorSet(MO_RIGHT1,rightspeed);
+	motorSet(MO_RIGHT1,-rightspeed);
 	motorSet(MO_RIGHT2,-rightspeed);
 }
 void controldrive(int turn, int forward) {
 	leftspeed=forward;
-		rightspeed=-1*forward;
-		leftspeed+=turn;
-		rightspeed+=turn;
-		setmotors();
+	rightspeed=-1*forward;
+	leftspeed+=turn;
+	rightspeed+=turn;
+
+	setmotors();
 }
 void opdrive() {
 	int joyforward = (abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_FORWARD) : 0;//TODO: firgure out if this is cached or if we need to ourselves
@@ -117,7 +118,8 @@ void opflywheel() {
 	}
 }
 void operatorControl() {
-	//autonomous();
+	autonomous();
+	/*
 	while (1) {
 		opdrive();
 
@@ -126,5 +128,5 @@ void operatorControl() {
 		opflywheel();
 		delay(20);
 
-	}
+	}//*/
 }
