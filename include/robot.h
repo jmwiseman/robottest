@@ -16,20 +16,23 @@
 #define MO_INTAKE 7
 
 #define MO_LEFT1 2
-#define MO_LEFT2 1
+#define MO_LEFT2 4
 #define MO_RIGHT1 3
-#define MO_RIGHT2 10
+#define MO_RIGHT2 5
 
 #define MO_FLY1 4
 #define MO_FLY2 5
 #define FLY_SPEED 255
 
-#define LS_LEFT 1
-#define LS_CENTER 2
-#define LS_RIGHT 3
+#define LS_LEFT 6
+#define LS_CENTER 7
+#define LS_RIGHT 8
 
 #define LS_B_L 0b10000000
 #define LS_B_C 0b01000000
 #define LS_B_R 0b00100000
+
 #define AUTOSPEED 64
+#define MAX_SPEED 50
+#define BANK_VALUE 20
 
