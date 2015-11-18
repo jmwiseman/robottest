@@ -55,7 +55,7 @@ int going=1;
 #define LSAMPLE_LEN
 int lsamples[LSAMPLE_LEN];
 int lstav;
-#define lthreshold 100
+#define lthreshold 200
 
 
 void controldrive(int turn, int forward);
@@ -97,7 +97,7 @@ void simple_linefollow() {
 //elijah_linefollow() driving functions
 void drive_straight()
 {
-	controldrive(MAX_SPEED,MAX_SPEED);
+	controldrive(0,MAX_SPEED);
 }
 //bank functions
 void bank_right()
@@ -111,11 +111,11 @@ void bank_left()
 //sharper bank functions
 void turn_right()
 {
-	controldrive(MAX_SPEED,MAX_SPEED);
+	controldrive(MAX_SPEED,0);
 }
 void turn_left()
 {
-	controldrive(-MAX_SPEED,MAX_SPEED);
+	controldrive(-MAX_SPEED,0);
 }
 void search_for_line()
 {
@@ -125,28 +125,34 @@ void search_for_line()
 void elijah_linefollow()
 {
 	int *ls=asense();
-	int right = abs(*(ls))>lthreshold;
-	int middle = abs(*(ls+1))>lthreshold;
-	int left = abs(*(ls+1))>lthreshold;
-
+	int right = *(ls)<-lthreshold;
+	int middle = *(ls+1)<-lthreshold;
+	int left = *(ls+2)<-lthreshold;
+	printf("%d %d %d\n",left,middle,right);
+	/*
 	//no sensors
 	if (!left && !middle && !right)
 	{
-		search_for_line();
-	}
+
+	}//*/
 	//single sensor
 	if (left && !middle && !right)
 	{
 		bank_left();
 	}
-	if (middle && !right && !left)
+	else if (middle && !right && !left)
 	{
 		drive_straight();
 	}
-	if (right && !left && !middle)
+	else if (right && !left && !middle)
 	{
 		bank_right();
 	}
+	else
+	{
+		drive_straight();
+	}
+	/*
 	//two sensors
 	if (left && middle && !right)
 	{
@@ -160,7 +166,7 @@ void elijah_linefollow()
 	if (right && left && middle)
 	{
 		turn_right();
-	}
+	}//*/
 }
 
 
@@ -172,6 +178,7 @@ void turntoline () {
 void driveincircle() {
 	controldrive(-AUTOSPEED,AUTOSPEED);
 }
+
 void autonomous() {
 	going=1;
 	while(1) {
@@ -180,21 +187,22 @@ void autonomous() {
 		//driveincircle();
 		//turntoline();
 		//simple_linefollow();
-		if(abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD)
-		{
+		//if(abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD)
+		//{
 			elijah_linefollow();
-		}
-		else
-		{
-			controldrive(0,0);
-		}
+		//}
+		//else
+		//{
+			//controldrive(0,0);
+		//}
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
 		asense();
 		printf("%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d%-6.0d\r\n", analogRead(LS_LEFT), analogRead(LS_CENTER), analogRead(LS_RIGHT), lss[0], lss[1], lss[2]);
-		//printf(" OS yeild\n");
+
 		delay(20);
+
 	}
 
 }

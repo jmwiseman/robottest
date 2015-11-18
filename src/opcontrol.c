@@ -54,13 +54,17 @@ void stopdrive();
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
 int leftspeed,rightspeed;
+#define DONT_MOVE 0
 void setmotors(){ 
+	if(!DONT_MOVE){
 	motorSet(MO_LEFT1,leftspeed);
 	motorSet(MO_LEFT2,leftspeed);  //TODO: OMG ROBERT
-	motorSet(MO_RIGHT1,-rightspeed);
-	motorSet(MO_RIGHT2,-rightspeed);
+	motorSet(MO_RIGHT1,rightspeed);
+	motorSet(MO_RIGHT2,rightspeed);
+	}
 }
 void controldrive(int turn, int forward) {
+	printf("%d\t%d\n",turn,forward);
 	leftspeed=forward;
 	rightspeed=-1*forward;
 	leftspeed+=turn;
@@ -118,9 +122,10 @@ void opflywheel() {
 	}
 }
 void operatorControl() {
+
 	autonomous();
-	/*
-	while (1) {
+	while (1)
+	{
 		opdrive();
 
 		opintake();
@@ -128,5 +133,5 @@ void operatorControl() {
 		opflywheel();
 		delay(20);
 
-	}//*/
+	}
 }

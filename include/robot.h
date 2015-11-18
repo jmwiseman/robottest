@@ -34,5 +34,5 @@
 
 #define AUTOSPEED 64
 #define MAX_SPEED 50
-#define BANK_VALUE 20
+#define BANK_VALUE 50
 
