@@ -78,32 +78,41 @@ void opdrive() {
 	controldrive(joyturn,joyforward);
 }
 void opconveyer() {
-
-}
-void opintake() {
+	/*
 	int cs;
 
-	if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
-	//if(abs(joystickGetDigital(1,JOY_INTAKE_B,JOY_UP))){
-		motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
-		cs=-CONVEYER_SPEED;
-	}else {
-		motorSet(MO_INTAKE,0);
-		if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
-			cs=CONVEYER_SPEED;
-		}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+		if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
+		//if(abs(joystickGetDigital(1,JOY_INTAKE_B,JOY_UP))){
+			motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
 			cs=-CONVEYER_SPEED;
 		}else {
-			cs=0;
+			motorSet(MO_INTAKE,0);
+			if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
+				cs=CONVEYER_SPEED;
+			}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+				cs=-CONVEYER_SPEED;
+			}else {
+				cs=0;
+			}
+
 		}
-
+		motorSet(MO_CONVEYER1,cs);
+		motorSet(MO_CONVEYER2,-cs);
+		*/
+}
+void opintake() {
+	if(joystickGetDigital(1,JOY_INTAKE,JOY_UP) == true)
+	{
+		motorSet(MO_INTAKE,-MAX_SPEED);
 	}
-	motorSet(MO_CONVEYER1,cs);
-	motorSet(MO_CONVEYER2,-cs);
-
-
-
-
+	else if (joystickGetDigital(1,JOY_INTAKE,JOY_DOWN) == true)
+	{
+		motorSet(MO_INTAKE,MAX_SPEED);
+	}
+	else
+	{
+		motorSet(MO_INTAKE,0);
+	}
 }
 
 void drivestop() {
@@ -113,24 +122,26 @@ void drivestop() {
 }
 
 void opflywheel() {
-	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true) {
+	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
+	{
 		motorSet(MO_FLY1,FLY_SPEED);
 		motorSet(MO_FLY2,-FLY_SPEED);
-	}else {
+	}
+	else
+	{
 		motorSet(MO_FLY1,0);
 		motorSet(MO_FLY2,0);
 	}
 }
 void operatorControl() {
 
-	autonomous();
+	//autonomous();
 	while (1)
 	{
 		opdrive();
-
 		opintake();
-		opconveyer();
-		opflywheel();
+		//opconveyer();
+		//opflywheel();
 		delay(20);
 
 	}

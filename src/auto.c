@@ -55,7 +55,7 @@ int going=1;
 #define LSAMPLE_LEN
 int lsamples[LSAMPLE_LEN];
 int lstav;
-#define lthreshold 200
+#define lthreshold 300
 
 
 void controldrive(int turn, int forward);
@@ -94,40 +94,44 @@ void simple_linefollow() {
 }
 
 
+int AUTO_SPEED = 20;
 //elijah_linefollow() driving functions
 void drive_straight()
 {
-	controldrive(0,MAX_SPEED);
+	controldrive(0,AUTO_SPEED+10);
 }
 //bank functions
 void bank_right()
 {
-	controldrive(BANK_VALUE,MAX_SPEED);
+	controldrive(AUTO_SPEED,AUTO_SPEED);
 }
 void bank_left()
 {
-	controldrive(-BANK_VALUE,MAX_SPEED);
+	controldrive(-AUTO_SPEED,AUTO_SPEED);
 }
 //sharper bank functions
 void turn_right()
 {
-	controldrive(MAX_SPEED,0);
+	controldrive(AUTO_SPEED,0);
 }
 void turn_left()
 {
-	controldrive(-MAX_SPEED,0);
+	controldrive(-AUTO_SPEED,0);
 }
 void search_for_line()
 {
 	bank_right();//TODO: change this to what it would actually be
 }
 
+
+int turning_back = 0;
+
 void elijah_linefollow()
 {
 	int *ls=asense();
-	int right = *(ls)<-lthreshold;
+	int left = *(ls)<-lthreshold;
 	int middle = *(ls+1)<-lthreshold;
-	int left = *(ls+2)<-lthreshold;
+	int right = *(ls+2)<-lthreshold;
 	printf("%d %d %d\n",left,middle,right);
 	/*
 	//no sensors
@@ -136,9 +140,12 @@ void elijah_linefollow()
 
 	}//*/
 	//single sensor
+	//int lag = 500;
+	/*
 	if (left && !middle && !right)
 	{
-		bank_left();
+		bank_right();
+		//delay(lag);
 	}
 	else if (middle && !right && !left)
 	{
@@ -146,12 +153,14 @@ void elijah_linefollow()
 	}
 	else if (right && !left && !middle)
 	{
-		bank_right();
+		bank_left();
+		//delay(lag);
 	}
 	else
 	{
 		drive_straight();
-	}
+	}//*/
+
 	/*
 	//two sensors
 	if (left && middle && !right)
@@ -167,6 +176,26 @@ void elijah_linefollow()
 	{
 		turn_right();
 	}//*/
+
+
+	if (middle && !right && !left)
+	{
+		bank_right();
+		turning_back = 0;
+	}
+	else if(right && !middle && !left)
+	{
+		bank_right();
+		turning_back = 1;
+	}
+	else if (!turning_back)
+	{
+		bank_left();
+	}
+
+
+
+
 }
 
 
@@ -181,20 +210,28 @@ void driveincircle() {
 
 void autonomous() {
 	going=1;
+	int linefollowing = 0;
 	while(1) {
-		//printf("Sensor value: %d ",analogRead(LS_LEFT));
-		//printf("Sensor value: %d\n",analogRead(LS_LEFT));
-		//driveincircle();
-		//turntoline();
-		//simple_linefollow();
-		//if(abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD)
-		//{
+
+		if(linefollowing == 0)
+		{
+			int *ls=asense();
+			int left = *(ls)<-lthreshold;
+			int middle = *(ls+1)<-lthreshold;
+			int right = *(ls+2)<-lthreshold;
+			printf("%d %d %d\n",left,middle,right);
+			if(left || middle || right)
+			{
+				linefollowing = 1;
+			}
+			drive_straight();
+		}
+		else if(linefollowing == 1)
+		{
 			elijah_linefollow();
-		//}
-		//else
-		//{
-			//controldrive(0,0);
-		//}
+		}
+
+
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
 		analogRead(LS_RIGHT);
