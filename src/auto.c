@@ -240,7 +240,9 @@ void autonomous() {
 		else if(linefollowing == S_BLIND)
 		{
 			bf=bf-1;
-			if(bf<=0)
+			printf("Ignoring sensors for %d iterations\n",bf);
+			drive_straight();
+			if(bf<=0)//should use encoders instead of loop iterations
 				linefollowing = S_FOLOW;
 		}
 

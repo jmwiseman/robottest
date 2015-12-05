@@ -19,8 +19,8 @@ void plottank(tank *v) {
 }
 void controltank(tank *v) {
 	v->battery=v->battery-0.001;
-	v->lspeed=sim_motors[MO_LEFT1]/100; //TODO: this needs pi somewhere
-	v->rspeed=sim_motors[MO_RIGHT1]/100;
+	v->lspeed=sim_motors[MO_LEFT1]/1; //TODO: this needs pi somewhere
+	v->rspeed=sim_motors[MO_RIGHT1]/1;
 }
 
 void simloop(tank *v){

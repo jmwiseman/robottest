@@ -25,7 +25,7 @@ void die(char *a) {
 	exit(0);
 }
 void sim_nextjoy() {
-	axis=(sim_clock/20)%5;
+	axis=(sim_clock/20)%2;
 	value=(((sim_clock/40)%3)*200)-200;
 	int i=0;
 	for(i=0;i<11;i++)
@@ -90,7 +90,9 @@ void sim_housekeeping() {
 	}
 }
 int main() {
+	printf("%d",MO_LEFT1);
 	printf("testing...\n");
+
 	operatorControl();
 	return 0;
 }
