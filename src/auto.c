@@ -60,7 +60,6 @@ int lstav;
 
 void controldrive(int turn, int forward);
 int *asense() {//NOT THREAD SAFE
-	int als=0;
 	int ls[3];
 	int i=0;
 	ls[0]=analogRead(LS_LEFT);
@@ -232,7 +231,7 @@ void autonomous() {
 		else if(linefollowing == S_FOLOW)
 		{
 			elijah_linefollow();
-			if(iscrossing) {
+			if(iscrossing()) {
 				bf=10;
 				linefollowing=S_BLIND;
 			}
