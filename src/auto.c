@@ -198,7 +198,9 @@ void elijah_linefollow()
 
 }
 
-
+int iscrossing() { //TODO: make this work better
+	return *(asense())<-lthreshold;
+}
 
 
 void turntoline () {
@@ -209,11 +211,12 @@ void driveincircle() {
 }
 
 void autonomous() {
+	int bf=0;
 	going=1;
-	int linefollowing = 0;
+	int linefollowing = S_SEKL;
 	while(1) {
 
-		if(linefollowing == 0)
+		if(linefollowing == S_SEKL)
 		{
 			int *ls=asense();
 			int left = *(ls)<-lthreshold;
@@ -222,15 +225,24 @@ void autonomous() {
 			printf("%d %d %d\n",left,middle,right);
 			if(left || middle || right)
 			{
-				linefollowing = 1;
+				linefollowing = S_FOLOW;
 			}
 			drive_straight();
 		}
-		else if(linefollowing == 1)
+		else if(linefollowing == S_FOLOW)
 		{
 			elijah_linefollow();
+			if(iscrossing) {
+				bf=10;
+				linefollowing=S_BLIND;
+			}
 		}
-
+		else if(linefollowing == S_BLIND)
+		{
+			bf=bf-1;
+			if(bf<=0)
+				linefollowing = S_FOLOW;
+		}
 
 		analogRead(LS_LEFT);
 		analogRead(LS_CENTER);
