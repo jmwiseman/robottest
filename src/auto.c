@@ -34,6 +34,7 @@
 
 #include "main.h"
 #include "../include/robot.h"
+#include "auto.h"
 //#include "stdio.h"
 
 /*
