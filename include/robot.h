@@ -36,3 +36,10 @@
 #define MAX_SPEED 128
 #define BANK_VALUE 30
 
+#define S_FOLOW 1
+#define S_BLIND 2
+#define S_TL	3
+#define S_TR	4
+#define S_SEKL	5
+
+
