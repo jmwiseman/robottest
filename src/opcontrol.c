@@ -66,7 +66,7 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	printf("%d\t%d\t",turn,forward);
-	printf("DIST:%d\n\r",encoderGet(r_encoder));
+	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
 
 	leftspeed=forward;
 	rightspeed=-1*forward;

@@ -45,4 +45,6 @@
 #define ENC_RIGHT_TOP 1
 #define ENC_RIGHT_BOT 2
 
+#define ENC_LEFT_TOP  3
+#define ENC_LEFT_BOT 4
 
