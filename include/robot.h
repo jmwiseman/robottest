@@ -42,4 +42,7 @@
 #define S_TR	4
 #define S_SEKL	5
 
+#define ENC_RIGHT_TOP 1
+#define ENC_RIGHT_BOT 2
+
 

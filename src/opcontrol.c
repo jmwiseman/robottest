@@ -33,8 +33,9 @@
  */
 
 #include "main.h"
-#include <../include/API.h>
-#include <../include/robot.h>
+#include "API.h"
+#include "../include/robot.h"
+#include "main.h"
 void stopdrive();
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -58,13 +59,15 @@ int leftspeed,rightspeed;
 void setmotors(){ 
 	if(!DONT_MOVE){
 	motorSet(MO_LEFT1,leftspeed);
-	motorSet(MO_LEFT2,leftspeed);  //TODO: OMG ROBERT
+	motorSet(MO_LEFT2,leftspeed);  
 	motorSet(MO_RIGHT1,rightspeed);
 	motorSet(MO_RIGHT2,rightspeed);
 	}
 }
 void controldrive(int turn, int forward) {
-	printf("%d\t%d\n",turn,forward);
+	printf("%d\t%d\t",turn,forward);
+	printf("DIST:%d\n\r",encoderGet(r_encoder));
+
 	leftspeed=forward;
 	rightspeed=-1*forward;
 	leftspeed+=turn;

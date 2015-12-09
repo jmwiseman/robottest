@@ -118,3 +118,6 @@ void operatorControl();
 #endif
 
 #endif
+Encoder r_encoder;
+Encoder l_encoder;
+

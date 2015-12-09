@@ -11,6 +11,8 @@
 typedef struct {
 	int lsteps;
 	int rsteps;
+	int ldir;
+	int rdir;
 	int state;
 	int dir;
 } segment;
@@ -19,12 +21,14 @@ segment segments[MAX_SEGMENTS];
 
 void resetsegments();
 int segmentnav(int dir); //SEG_DIR for continue 0 for undo
+//when adding directions the first direction should be even and it's inverse should use the next number
 #define SEG_INIT -1
 #define SEG_UNDO 0
 #define SEG_FORWARD 1
-#define SEG_LEFT_BANK 2
-#define SEG_RIGHT_BANK 3
-#define SEG_LEFT_PIVOT 4
-#define SEG_RIGHT_PIVOT 5
+#define SEG_BACKWARD 2
+#define SEG_LEFT_BANK 3
+#define SEG_RIGHT_BANK 4
+#define SEG_LEFT_PIVOT 5
+#define SEG_RIGHT_PIVOT 6
 int undonav();//return to the beginning of a recorded path (blocking)
 #define tseg segments[currentsegment]
