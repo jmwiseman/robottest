@@ -36,6 +36,7 @@
 #include "API.h"
 #include "../include/robot.h"
 #include "main.h"
+#include "auto.h"
 void stopdrive();
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -65,9 +66,14 @@ void setmotors(){
 	}
 }
 void controldrive(int turn, int forward) {
-	printf("%d\t%d\t",turn,forward);
-	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+	static int callcount=0;
+	if(callcount>10) {
+		printf("%d\t%d\t",turn,forward);
+		printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+		callcount=0;
+	}
 
+	callcount=callcount+1;
 	leftspeed=forward;
 	rightspeed=-1*forward;
 	leftspeed+=turn;
@@ -136,6 +142,10 @@ void opflywheel() {
 		motorSet(MO_FLY2,0);
 	}
 }
+void opautotest() {//hook for quickly testing autonomous subnavigation
+	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B))
+		arc10();
+}
 void operatorControl() {
 
 	//autonomous();
@@ -145,6 +155,7 @@ void operatorControl() {
 		opintake();
 		//opconveyer();
 		//opflywheel();
+		opautotest();
 		delay(20);
 
 	}

@@ -1,6 +1,8 @@
 #define JOY_TURN 1
 #define JOY_FORWARD 2
 #define JOY_INTAKE 5
+#define JOY_AUTOTEST_G 8
+#define JOY_AUTOTEST_B JOY_LEFT
 #define JOY_INTAKE_B 7
 #define JOY_FLYWHEEL 6
 #define JOY_DEAD 20

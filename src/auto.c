@@ -35,6 +35,7 @@
 #include "main.h"
 #include "../include/robot.h"
 #include "auto.h"
+#include "path.h"
 //#include "stdio.h"
 
 /*
@@ -208,6 +209,21 @@ void turntoline () {
 }
 void driveincircle() {
 	controldrive(-AUTOSPEED,AUTOSPEED);
+}
+void arc10(){//physical test for segment path navigation
+	printf("test segment navigation\n");
+	int i=0;
+	resetsegments();
+	for(i=0;i<100;i++){
+		segmentnav(SEG_FORWARD);	
+		delay(10);
+	}
+
+	for(i=0;i<100;i++){
+		segmentnav(SEG_LEFT_BANK);	
+		delay(10);
+	}
+	undonav();
 }
 
 void autonomous() {
