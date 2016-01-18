@@ -6,7 +6,7 @@ DEVICE=VexCortex
 # Libraries to include in the link (use -L and -l) e.g. -lm, -lmyLib
 LIBRARIES=$(ROOT)/firmware/libccos.a -lgcc -lm
 # Prefix for ARM tools (must be on the path)
-MCUPREFIX=arm-none-eabi-
+MCUPREFIX=/opt/pros/toolchain/bin/arm-none-eabi-
 # Flags for the assembler
 MCUAFLAGS=-mthumb -mcpu=cortex-m3 -mlittle-endian
 # Flags for the compiler

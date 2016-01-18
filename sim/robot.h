@@ -1,6 +1,8 @@
 #define JOY_TURN 1
 #define JOY_FORWARD 2
 #define JOY_INTAKE 5
+#define JOY_AUTOTEST_G 8
+#define JOY_AUTOTEST_B JOY_LEFT
 #define JOY_INTAKE_B 7
 #define JOY_FLYWHEEL 6
 #define JOY_DEAD 20
@@ -35,4 +37,16 @@
 #define AUTOSPEED 64
 #define MAX_SPEED 128
 #define BANK_VALUE 30
+
+#define S_FOLOW 1
+#define S_BLIND 2
+#define S_TL	3
+#define S_TR	4
+#define S_SEKL	5
+
+#define ENC_RIGHT_TOP 1
+#define ENC_RIGHT_BOT 2
+
+#define ENC_LEFT_TOP  3
+#define ENC_LEFT_BOT 4
 
