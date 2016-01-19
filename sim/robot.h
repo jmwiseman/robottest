@@ -11,7 +11,7 @@
 //#define MO_CONVEYER1 1
 //#define MO_CONVEYER2 10
 #define MO_CONVEYER1 7
-#define MO_CONVEYER2 8
+//#define MO_CONVEYER2 8
 #define B_CONVEYER 5
 #define CONVEYER_SPEED 150
 
@@ -49,4 +49,4 @@
 
 #define ENC_LEFT_TOP  3
 #define ENC_LEFT_BOT 4
-
+#define LCD_PORT uart1
