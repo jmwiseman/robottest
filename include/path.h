@@ -32,3 +32,5 @@ int segmentnav(int dir); //SEG_DIR for continue 0 for undo
 #define SEG_RIGHT_PIVOT 6
 int undonav();//return to the beginning of a recorded path (blocking)
 #define tseg segments[currentsegment]
+#define CUR_DIST_L  (tseg.ldir*encoderGet(l_encoder)-tseg.lsteps)   
+#define CUR_DIST_R  (tseg.rdir*encoderGet(r_encoder)-tseg.rsteps) 

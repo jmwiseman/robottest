@@ -30,5 +30,6 @@ void initializeIO() {
 void initialize() {
 	r_encoder = encoderInit(ENC_RIGHT_TOP,ENC_RIGHT_BOT,1);
 	l_encoder = encoderInit(ENC_LEFT_TOP,ENC_LEFT_BOT,0);
+	//lcdinit(LCD_PORT);
 
 }

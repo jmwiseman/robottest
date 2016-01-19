@@ -87,27 +87,25 @@ void opdrive() {
 	controldrive(joyturn,joyforward);
 }
 void opconveyer() {
-	/*
+	
 	int cs;
 
-		if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
-		//if(abs(joystickGetDigital(1,JOY_INTAKE_B,JOY_UP))){
-			motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
-			cs=-CONVEYER_SPEED;
+		//if(abs(joystickGetAnalog(1,JOY_INTAKE)) > JOY_DEAD) {
+		if(abs(joystickGetDigital(1,JOY_INTAKE_B,JOY_UP))){
+		//	motorSet(MO_INTAKE,joystickGetAnalog(1,JOY_INTAKE));
+			cs=CONVEYER_SPEED;
 		}else {
-			motorSet(MO_INTAKE,0);
 			if(joystickGetDigital(1,B_CONVEYER,JOY_DOWN) == true) {
-				cs=CONVEYER_SPEED;
-			}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
 				cs=-CONVEYER_SPEED;
+			}else if(joystickGetDigital(1,B_CONVEYER,JOY_UP) == true) {
+				cs=CONVEYER_SPEED;
 			}else {
 				cs=0;
 			}
 
 		}
 		motorSet(MO_CONVEYER1,cs);
-		motorSet(MO_CONVEYER2,-cs);
-		*/
+		
 }
 void opintake() {
 	if(joystickGetDigital(1,JOY_INTAKE,JOY_UP) == true)
@@ -153,7 +151,7 @@ void operatorControl() {
 	{
 		opdrive();
 		opintake();
-		//opconveyer();
+		opconveyer();
 		//opflywheel();
 		opautotest();
 		delay(20);
