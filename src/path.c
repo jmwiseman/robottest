@@ -14,7 +14,18 @@ void p_status() {
 	}
 
 }
+void printseg(int seg) {
+	printf("SEG%d: lR:%d\tRR:%d\tld:%d\tlr:%d\ts:%d\td:%d\t\n",seg,segments[seg].lsteps,segments[seg].rsteps,segments[seg].ldir,segments[seg].rdir,segments[seg].state,segments[seg].dir);
+}
 
+void endsegment() {
+	printf("segment%d ended",currentsegment);
+	tseg.state=SEG_STATE_COUNTED;
+	tseg.lsteps=encoderGet(l_encoder);
+	tseg.rsteps=encoderGet(r_encoder);
+	encoderReset(l_encoder);
+	encoderReset(r_encoder);
+}
 int segmentvalid(){
 	if(segments[currentsegment].state<0 ||segments[currentsegment].dir<0){
 		printf("Path segment %d faild validation test\n",currentsegment);
@@ -34,7 +45,7 @@ void resetsegments(){
 	}
 }
 int newsegment(){
-	printf("allocating new path segment...\n\r");
+	printf("allocating new path segment...");
 	if(currentsegment>=MAX_SEGMENTS-1){
 		printf("Out of path segments\n");
 		return 1;
@@ -44,11 +55,9 @@ int newsegment(){
 			printf("path segment%d corrupt\n",currentsegment);
 			return 1;
 		}
-		segments[currentsegment].state=SEG_STATE_COUNTED;
 
+		endsegment();
 	}
-	tseg.lsteps=encoderGet(l_encoder);
-	tseg.rsteps=encoderGet(r_encoder);
 	encoderReset(l_encoder);
 	encoderReset(r_encoder);
 
@@ -57,6 +66,7 @@ int newsegment(){
 	segments[currentsegment].rsteps=0;
 	segments[currentsegment].state=SEG_STATE_INIT;
 	segments[currentsegment].dir=SEG_INIT;
+	printf("starting new segment:%d\n\r",currentsegment);
 	return 0;
 }
 void segmove(int dir) {
@@ -66,6 +76,7 @@ void segmove(int dir) {
 		case SEG_RIGHT_BANK: bank_right();break;
 		case SEG_LEFT_PIVOT: turn_left();break;
 		case SEG_RIGHT_PIVOT: turn_right();break;
+		case SEG_BACKWARD: drive_backward();break;
 		default: printf("invalid physical direction %d\n",dir);break;
 	}
 }
@@ -90,13 +101,17 @@ int segmentnav(int dir){
 		case SEG_RIGHT_PIVOT: tseg.ldir=1;tseg.rdir=-1;break;
 		default: printf("invalid physical direction %d\n",dir);break;
 	}
+	if(tseg.ldir==0&&tseg.rdir==0)
+		printf("new segment is corrupt\n\r");
 	segmove(dir);
 	return 0;
 }
 int undonav() {
 	printf("reversing all navigation\n");
+	endsegment();
 	while(currentsegment>=0) {
 		printf("Starting segment:%d\n\r",currentsegment);
+		printseg(currentsegment);
 		while( 
 				(CUR_DIST_L >=0 ) &&
 				(CUR_DIST_R >=0 )
@@ -104,7 +119,7 @@ int undonav() {
 			p_status();
 			printf("p");
 			int d=0;
-			if (tseg.dir%1)
+			if (!(tseg.dir%2))
 				d=tseg.dir-1;
 			else
 				d=tseg.dir+1;

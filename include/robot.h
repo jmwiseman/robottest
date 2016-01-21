@@ -34,7 +34,7 @@
 #define LS_B_C 0b01000000
 #define LS_B_R 0b00100000
 
-#define AUTOSPEED 64
+#define AUTOSPEED 84
 #define MAX_SPEED 128
 #define BANK_VALUE 30
 

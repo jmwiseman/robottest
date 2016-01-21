@@ -101,6 +101,10 @@ void drive_straight()
 {
 	controldrive(0,AUTO_SPEED+10);
 }
+void drive_backward()
+{
+	controldrive(0,-AUTO_SPEED-10);
+}
 //bank functions
 void bank_right()
 {
@@ -215,15 +219,15 @@ void arc10(){//physical test for segment path navigation
 	delay(1000);
 	int i=0;
 	resetsegments();
-	//for(i=0;i<100;i++){
+	for(i=0;i<100;i++){
 		segmentnav(SEG_FORWARD);	
-		delay(1000);
-	//}
+		delay(50);
+	}
 
-	//for(i=0;i<100;i++){
+	for(i=0;i<100;i++){
 		segmentnav(SEG_LEFT_BANK);	
-		delay(1000);
-	//}
+		delay(50);
+	}
 	undonav();
 }
 
