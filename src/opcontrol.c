@@ -37,6 +37,8 @@
 #include "../include/robot.h"
 #include "main.h"
 #include "auto.h"
+#include "tank.h"
+float a;
 void stopdrive();
 /*
  * Runs the user operator control code. This function will be started in its own task with the
@@ -55,6 +57,7 @@ void stopdrive();
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+tank ltank;
 int leftspeed,rightspeed;
 #define DONT_MOVE 0
 void setmotors(){ 
@@ -67,9 +70,14 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	static int callcount=0;
+	static int oldl=0;
+	static int oldr=0;
 	if(callcount>10) {
 		printf("%d\t%d\t",turn,forward);
-		printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+		printpos(&ltank);
+		printf("\n\r");
+	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+	
 		callcount=0;
 	}
 
@@ -79,6 +87,12 @@ void controldrive(int turn, int forward) {
 	leftspeed+=turn;
 	rightspeed+=turn;
 
+	//DO NOT RESET THE ENCODERS!!!!!!!!
+	
+	simtank(&ltank,encoderGet(l_encoder)-oldl,encoderGet(r_encoder)-oldr);
+	//simtank(&ltank,1,1);
+	oldl=encoderGet(l_encoder);
+	oldr=encoderGet(r_encoder);
 	setmotors();
 }
 void opdrive() {
@@ -141,8 +155,15 @@ void opflywheel() {
 	}
 }
 void opautotest() {//hook for quickly testing autonomous subnavigation
-	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B))
-		arc10();
+	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B)){
+		encoderReset(l_encoder);
+		encoderReset(r_encoder);
+		ltank.x=0;
+		ltank.y=0;
+		ltank.h=0;
+	}
+	//	arc10();
+		//fetch();
 }
 void operatorControl() {
 
