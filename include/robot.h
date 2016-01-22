@@ -34,6 +34,11 @@
 #define LS_B_C 0b01000000
 #define LS_B_R 0b00100000
 
+#define US_IN_RIGHT 5
+#define US_OUT_RIGHT 6
+#define US_IN_LEFT 7
+#define US_OUT_LEFT 8
+
 #define AUTOSPEED 84
 #define MAX_SPEED 128
 #define BANK_VALUE 30

@@ -176,6 +176,7 @@ void operatorControl() {
 		//opflywheel();
 		opautotest();
 		delay(20);
+		//print("hi");
 
 	}
 }
