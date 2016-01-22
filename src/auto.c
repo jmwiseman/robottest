@@ -32,10 +32,10 @@
  * obtained from http://sourceforge.net/projects/freertos/files/ or on request.
  */
 
-#include "main.h"
-#include "../include/robot.h"
-#include "auto.h"
-#include "path.h"
+#include <main.h>
+#include <../include/robot.h>
+#include <auto.h>
+#include <path.h>
 //#include "stdio.h"
 
 /*

@@ -1,8 +1,8 @@
-#include "path.h" 
-#include "robot.h"
-#include "main.h"
-#include "auto.h"
-#include "API.h"
+#include <path.h> 
+#include <robot.h>
+#include <main.h>
+#include <auto.h>
+#include <API.h>
 int currentsegment=-1;
 void p_status() {
 	static int callcount=0;
