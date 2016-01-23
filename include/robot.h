@@ -35,7 +35,7 @@
 #define LS_B_C 0b01000000
 #define LS_B_R 0b00100000
 
-#define US_IN_RIGHT  ((unsigned char)5)
+#define US_IN_RIGHT  ((unsigned char)5) //orange
 #define US_OUT_RIGHT ((unsigned char)6)
 #define US_IN_LEFT   ((unsigned char)7)
 #define US_OUT_LEFT  ((unsigned char)8)

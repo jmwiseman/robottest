@@ -168,7 +168,7 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 
 void print_us()
 {
-	printf("%40d%40d", ultrasonicGet(usL), ultrasonicGet(usR));
+	printf("%40d \t%40d\n\r", ultrasonicGet(usL), ultrasonicGet(usR));
 }
 void operatorControl() {
 	usR = ultrasonicInit(US_OUT_RIGHT, US_IN_RIGHT);
