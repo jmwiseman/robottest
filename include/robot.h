@@ -1,3 +1,4 @@
+#include <API.h>
 #define JOY_TURN 1
 #define JOY_FORWARD 2
 #define JOY_INTAKE 5
@@ -55,3 +56,6 @@
 #define ENC_LEFT_TOP  3
 #define ENC_LEFT_BOT 4
 #define LCD_PORT uart1
+//global varibles
+ Ultrasonic usR;
+ Ultrasonic usL;
