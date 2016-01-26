@@ -161,8 +161,8 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 		ltank.y=0;
 		ltank.h=0;
 	}
-	//	arc10();
-		//fetch();
+	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET))
+			b_driveto(ltank,40,40,0);
 }
 
 void print_us()
