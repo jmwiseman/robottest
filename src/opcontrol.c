@@ -70,8 +70,6 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	static int callcount=0;
-	static int oldl=0;
-	static int oldr=0;
 	if(callcount>10) {
 		printf("%d\t%d\t",turn,forward);
 		printpos(&ltank);
@@ -89,10 +87,10 @@ void controldrive(int turn, int forward) {
 
 	//DO NOT RESET THE ENCODERS!!!!!!!!
 	
-	simtank(&ltank,encoderGet(l_encoder)-oldl,encoderGet(r_encoder)-oldr);
+	simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
+	encoderReset(r_encoder);
+	encoderReset(l_encoder);
 	//simtank(&ltank,1,1);
-	oldl=encoderGet(l_encoder);
-	oldr=encoderGet(r_encoder);
 	setmotors();
 }
 void opdrive() {
@@ -145,6 +143,7 @@ void drivestop() {
 void opflywheel() {
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
+		printf("go!\n\r");
 		motorSet(MO_FLY1,FLY_SPEED);
 		motorSet(MO_FLY2,-FLY_SPEED);
 	}
@@ -178,14 +177,15 @@ void print_us()
 void operatorControl() {
 	usR = ultrasonicInit(US_OUT_RIGHT, US_IN_RIGHT);
 	usL = ultrasonicInit(US_OUT_LEFT, US_IN_LEFT);
-
+	encoderReset(r_encoder);
+	encoderReset(l_encoder);
 	//autonomous();
 	while (1)
 	{
 		opdrive();
 		opintake();
 		opconveyer();
-		//opflywheel();
+		opflywheel();
 		opautotest();
 		print_us();
 		delay(20);

@@ -23,8 +23,8 @@
 #define MO_RIGHT1 3
 #define MO_RIGHT2 5
 
-#define MO_FLY1 9
-#define MO_FLY2 10
+#define MO_FLY1 8 //C, D
+#define MO_FLY2 9 //A, B
 #define FLY_SPEED 255
 
 #define LS_LEFT 6

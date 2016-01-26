@@ -9,7 +9,7 @@ void simtank(tank *v,int dl, int dr) {
 	double rspeed=dr*0.1;
 	double r=(lspeed+rspeed)/2;
 	//if(fabs(lspeed-rspeed)>100)
-		v->h=v->h+((lspeed-rspeed))/36.1;
+		v->h=v->h+((lspeed-rspeed))/33.0;//TODO: use math
 
 	v->x=v->x+(r*cos(v->h));
 	v->y=v->y+(r*sin(v->h));
