@@ -36,7 +36,7 @@
 #include <../include/robot.h>
 #include <auto.h>
 #include <path.h>
-//#include "stdio.h"
+#include <tank.h>
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -231,7 +231,7 @@ void arc10(){//physical test for segment path navigation
 	undonav();
 }
 
-void autonomous() {
+void elf() {
 	int bf=0;
 	going=1;
 	int linefollowing = S_SEKL;
@@ -276,6 +276,10 @@ void autonomous() {
 		delay(20);
 
 	}
+	//TODO: end using range sensor
 
+}
+void autonomous() {
+	drivetogoal(ltank);
 }
 //Test comment to fix line endings
