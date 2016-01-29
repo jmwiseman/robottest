@@ -7,3 +7,4 @@ void turn_right();
 void turn_left();
 void arc10();
 void fetch();
+void elf();

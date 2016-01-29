@@ -1,4 +1,5 @@
 /** @file auto.c
+ *
  * @brief File for autonomous code
  *
  * This file should contain the user autonomous() function and any functions related to it.
@@ -36,6 +37,7 @@
 #include <../include/robot.h>
 #include <auto.h>
 #include <path.h>
+#include <tank.h>
 //#include "stdio.h"
 
 /*
@@ -231,7 +233,7 @@ void arc10(){//physical test for segment path navigation
 	undonav();
 }
 
-void autonomous() {
+void elf() {
 	int bf=0;
 	going=1;
 	int linefollowing = S_SEKL;
@@ -276,6 +278,11 @@ void autonomous() {
 		delay(20);
 
 	}
+	//TODO: end using range sensor
 
 }
-//Test comment to fix line endings
+void autonomous() {
+	drivetogoal(ltank);
+}
+
+

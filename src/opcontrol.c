@@ -57,7 +57,6 @@ void stopdrive();
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
-tank ltank;
 int leftspeed,rightspeed;
 #define DONT_MOVE 0
 void setmotors(){ 
@@ -161,8 +160,10 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 		ltank.y=0;
 		ltank.h=0;
 	}
-	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET))
-			b_driveto(ltank,40,40,0);
+	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET)){
+		printf("autodriveto\n\r");
+		drivetogoal(ltank);
+	}
 }
 
 void print_us()

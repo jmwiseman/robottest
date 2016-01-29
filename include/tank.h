@@ -12,5 +12,6 @@ double headingto(tank v, double x, double y);
 double distanceto(tank v, double x, double y);
 void driveto(tank v, double x, double y);
 void b_driveto(tank v, double x, double y, double r);
-
+void drivetogoal(tank v);
+tank ltank;
 
