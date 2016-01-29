@@ -1,15 +1,15 @@
 #include<auto.h>
 #include<API.h>
 #include<tank.h>
-#define WEEL_WIDTH 4
-#define ROBOT_WIDTH 7.45
-#define PI 3.141592654
+
+#include<robot.h>
 double f_tile_len=20;
 #define f_center_x f_tile_len
 #define f_center_y 2*f_tile_len
-#define f_shot_x f_tile_len*2
-#define f_shot_y f_tile_len*3
-
+#define f_shot_x   f_tile_len*2
+#define f_shot_y   f_tile_len*3
+#define ROBOT_WIDTH 7.5
+#define WEEL_WIDTH 4
 extern void controldrive(int turn,int forward);
 void simtank(tank *v,int dl, int dr) {
 	//the change in heading is the difference of the speeds
@@ -52,7 +52,7 @@ double distanceto(tank v, double x, double y) {
 	return sqrt(pow((v.x-x),2)+pow((v.y-y),2));
 }
 void driveto(tank v, double x, double y) {
-	int turn =ceil((headingto(v,x,y)-v.h)*50);
+	int turn; //=ceil(((headingto(v,x,y)-3.1415)-v.h)*75);//This is wrong
 	int forward=ceil((distanceto(v,x,y)));
 	forward=0;
 	controldrive(turn,forward);

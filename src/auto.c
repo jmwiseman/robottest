@@ -38,7 +38,6 @@
 #include <auto.h>
 #include <path.h>
 #include <tank.h>
-//#include "stdio.h"
 
 /*
  * Runs the user autonomous code. This function will be started in its own task with the default
@@ -284,5 +283,3 @@ void elf() {
 void autonomous() {
 	drivetogoal(ltank);
 }
-
-
