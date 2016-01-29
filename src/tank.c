@@ -2,6 +2,11 @@
 #include<API.h>
 #include<tank.h>
 #include<robot.h>
+double f_tile_len=20;
+#define f_center_x f_tile_len
+#define f_center_y 2*f_tile_len
+#define f_shot_x   f_tile_len*2
+#define f_shot_y   f_tile_len*3
 extern void controldrive(int turn,int forward);
 void simtank(tank *v,int dl, int dr) {
 	//the change in heading is the difference of the speeds
@@ -47,6 +52,8 @@ void driveto(tank v, double x, double y) {
 		turn=-50;
 	else 
 		turn=0;
+	/*turn=headingto(v,x,y)-v.h;*/
+	
 	controldrive(turn,0);
 	
 }
