@@ -23,9 +23,9 @@ void simtank(tank *v,int dl, int dr) {
 	//if(fabs(lspeed-rspeed)>100)
 //		v->h=v->h+((lspeed-rspeed))/33.0;//TODO: use math
 	if(lspeed>rspeed)
-		dh=((lspeed-rspeed)/10)*((lspeed*WEEL_WIDTH)/ROBOT_WIDTH);
+		dh=((lspeed-rspeed)/30)*((lspeed*WEEL_WIDTH)/ROBOT_WIDTH);
 	else
-		dh=((lspeed-rspeed)/10)*((rspeed*WEEL_WIDTH)/ROBOT_WIDTH);
+		dh=((lspeed-rspeed)/30)*((rspeed*WEEL_WIDTH)/ROBOT_WIDTH);
 	v->h=v->h+dh;
 	if(v->h>2*PI)
 		v->h=v->h-2*PI;
@@ -35,10 +35,11 @@ void simtank(tank *v,int dl, int dr) {
 	v->x=v->x+(r*cos(v->h));
 	v->y=v->y+(r*sin(v->h));
 }
-void printpos(tank *v) {
-	printf("POSITION: x:%f\t y:%f\t HEAD: %f",v->x,v->y,v->h);
+double distanceto(tank v, double x, double y) {
+	return sqrt(pow((v.x-x),2)+pow((v.y-y),2));
 }
 double headingto(tank v, double x, double y) {//return heading to target from current position
+	/*
 	//     robotpositionvector + newoffsetvector = targetpositionvector
 	//=>   robotpositionvector - targetpositionvector = -newoffsetvector
 	//=> -(robotpositionvector - targetpositionvector) = newoffsetvector
@@ -47,27 +48,36 @@ double headingto(tank v, double x, double y) {//return heading to target from cu
 	nx=-v.x+x;
 	ny=-v.y+y;
 	return 	atan2(nx,ny);
+	*/ //that's retarded
+
+	return asin(
+			(sqrt(pow(x,2)+pow(y,2))*sin(atan2(x,y)-atan2(v.x,v.y)))
+			/distanceto(v,x,y)
+		   );
 }
-double distanceto(tank v, double x, double y) {
-	return sqrt(pow((v.x-x),2)+pow((v.y-y),2));
+void printpos(tank *v) {
+	double x=f_center_x;
+	double y=f_center_y;
+	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y)-v->h);
 }
 void driveto(tank v, double x, double y) {
-	int turn; //=ceil(((headingto(v,x,y)-3.1415)-v.h)*75);//This is wrong
-	int forward=ceil((distanceto(v,x,y)));
-	forward=0;
+	double turn=(headingto(v,x,y)-v.h)*10;//This is wrong
+	printf("%f ",turn);
+	//printf("HEADINGTOTARGET:%f\n\r",headingto(v,x,y));
+	int forward=ceil((distanceto(v,x,y)/2));
+	if(forward >32)
+		forward=32;
+	//forward=0;
 	controldrive(turn,forward);
-	
 }
-void b_driveto(tank v,double x, double y, double r) {
-	if(r==0)
-		r=5;
-	while(distanceto(v,x,y)>r) {
-		printf("DISTANCE: %f\n\r",distanceto(v,x,y));
-		driveto(v,x,y);
+void b_driveto(tank *v,double x, double y, double r) {
+	while(distanceto(*v,x,y)>r) {
+		//printf("DISTANCE: %f\n\r",distanceto(v,x,y));
+		driveto(*v,x,y);
 		delay(20);
 	}
 }
-void drivetogoal(tank v) {
+void drivetogoal(tank *v) {
 	//drive near center of map then use elijah line follow code + range sensor
 	//reset position to in front of goal
 	b_driveto(v,f_center_x,f_center_y,20);

@@ -281,5 +281,5 @@ void elf() {
 
 }
 void autonomous() {
-	drivetogoal(ltank);
+	drivetogoal(&ltank);
 }

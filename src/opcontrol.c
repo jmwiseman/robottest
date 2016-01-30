@@ -162,7 +162,7 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 	}
 	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET)){
 		printf("autodriveto\n\r");
-		drivetogoal(ltank);
+		drivetogoal(&ltank);
 	}
 }
 
