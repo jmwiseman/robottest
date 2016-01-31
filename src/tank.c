@@ -10,6 +10,9 @@ double f_tile_len=20;
 #define f_shot_y   f_tile_len*3
 #define ROBOT_WIDTH 7.5
 #define WEEL_WIDTH 4
+double na(double t) {//normalize angle
+	return fmod(t,2*PI);
+}
 extern void controldrive(int turn,int forward);
 void simtank(tank *v,int dl, int dr) {
 	//the change in heading is the difference of the speeds
@@ -23,14 +26,11 @@ void simtank(tank *v,int dl, int dr) {
 	//if(fabs(lspeed-rspeed)>100)
 //		v->h=v->h+((lspeed-rspeed))/33.0;//TODO: use math
 	if(lspeed>rspeed)
-		dh=((lspeed-rspeed)/30)*((lspeed*WEEL_WIDTH)/ROBOT_WIDTH);
+		dh=((lspeed-rspeed)/8)*((lspeed*WEEL_WIDTH)/ROBOT_WIDTH);
 	else
-		dh=((lspeed-rspeed)/30)*((rspeed*WEEL_WIDTH)/ROBOT_WIDTH);
+		dh=((lspeed-rspeed)/8)*((rspeed*WEEL_WIDTH)/ROBOT_WIDTH);
 	v->h=v->h+dh;
-	if(v->h>2*PI)
-		v->h=v->h-2*PI;
-	if(v->h<0)
-		v->h=v->h+2*PI;
+		v->h=na(v->h);
 
 	v->x=v->x+(r*cos(v->h));
 	v->y=v->y+(r*sin(v->h));
@@ -58,15 +58,22 @@ double headingto(tank v, double x, double y) {//return heading to target from cu
 void printpos(tank *v) {
 	double x=f_center_x;
 	double y=f_center_y;
-	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y)-v->h);
+	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
 }
 void driveto(tank v, double x, double y) {
-	double turn=(headingto(v,x,y)-v.h)*10;//This is wrong
-	printf("%f ",turn);
+	//double turn=(headingto(v,x,y)-v.h)*10;//This is wrong
+	double turn=0;
+	if(turn>30)
+		turn=30;
+	if(headingto(v,x,y)-0.5 >v.h)
+		turn=-30;
+	if(headingto(v,x,y)+0.5 <v.h)
+		turn=30;
+	//printf("%f ",turn);
 	//printf("HEADINGTOTARGET:%f\n\r",headingto(v,x,y));
-	int forward=ceil((distanceto(v,x,y)/2));
-	if(forward >32)
-		forward=32;
+	int forward=ceil((distanceto(v,x,y)*30));
+	if(forward >35)
+		forward=35;
 	//forward=0;
 	controldrive(turn,forward);
 }
