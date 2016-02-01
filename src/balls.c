@@ -2,18 +2,41 @@
 #include <path.h>
 #include <auto.h>
 #include <robot.h>
-
-int seeing_ball(Ultrasonic usL, Ultrasonic usR)
+#include <tank.h>
+#include <main.h>
+#define US_S 4
+int sb;
+void seeing_ball(Ultrasonic usL, Ultrasonic usR)
 {
 	int US_thresh = 10; //TODO: define in the correct file?
 	int dist_left = ultrasonicGet(usL); //cm
 	int dist_right = ultrasonicGet(usR); //cm
-	return dist_left + US_thresh >= dist_right && dist_right + US_thresh >= dist_left;
+	double dvx=cos(ltank.h);
+	double dvy=sin(ltank.h);
+	double uslx=dvx*US_S+ltank.x;
+	double usly=dvy*US_S+ltank.y;
+//	return dist_left + US_thresh >= dist_right && dist_right + US_thresh >= dist_left;
+	if(dist_left){
+		ballx=(dvx*dist_left)+uslx;
+		bally=(dvy*dist_left)+usly;
+		sb=1;
+	}
+	 static int callcount=0;
+	if(callcount >10){
+		printf("%40d \t%40d\n\r", ultrasonicGet(usL), dist_right);
+		callcount=0;
+	}
+	callcount +=1;
+}
+void printball() {
+	printf("BALL:%f\t%f\t",ballx,bally);
+}
+int seenball() {
+	return sb;
 }
 
 
-
-
+/*
 void fetch(void)
 {
 	Ultrasonic usR = ultrasonicInit(US_OUT_RIGHT, US_IN_RIGHT);
@@ -39,3 +62,4 @@ void fetch(void)
 	}
 	undonav();
 }
+*/

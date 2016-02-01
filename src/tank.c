@@ -29,8 +29,8 @@ void simtank(tank *v,int dl, int dr) {
 		dh=((lspeed-rspeed)/8)*((lspeed*WEEL_WIDTH)/ROBOT_WIDTH);
 	else
 		dh=((lspeed-rspeed)/8)*((rspeed*WEEL_WIDTH)/ROBOT_WIDTH);
-	v->h=v->h+dh;
-		v->h=na(v->h);
+	v->h=v->h-dh;
+	v->h=na(v->h);
 
 	v->x=v->x+(r*cos(v->h));
 	v->y=v->y+(r*sin(v->h));
@@ -63,12 +63,10 @@ void printpos(tank *v) {
 void driveto(tank v, double x, double y) {
 	//double turn=(headingto(v,x,y)-v.h)*10;//This is wrong
 	double turn=0;
-	if(turn>30)
-		turn=30;
 	if(headingto(v,x,y)-0.5 >v.h)
-		turn=-30;
-	if(headingto(v,x,y)+0.5 <v.h)
 		turn=30;
+	if(headingto(v,x,y)+0.5 <v.h)
+		turn=-30;
 	//printf("%f ",turn);
 	//printf("HEADINGTOTARGET:%f\n\r",headingto(v,x,y));
 	int forward=ceil((distanceto(v,x,y)*30));

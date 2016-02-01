@@ -72,6 +72,7 @@ void controldrive(int turn, int forward) {
 	if(callcount>10) {
 		printf("%d\t%d\t",turn,forward);
 		printpos(&ltank);
+		printball();
 		printf("\n\r");
 	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
 	
@@ -187,8 +188,8 @@ void operatorControl() {
 		opintake();
 		opconveyer();
 		opflywheel();
+		seeing_ball();
 		opautotest();
-		print_us();
 		delay(20);
 		//print("hi");
 
