@@ -46,7 +46,7 @@ int s(int l) {
 	return gofor(inches(l)/2,inches(l)/2,0,SPEED);	
 }
 int l(int a){
-	return gofor(radians(10*a/WIDTH)/2,radians(10*a/WIDTH)/2,SPEED,0);
+	return gofor(radians((a/10)*WIDTH)/2,radians((a/10)*WIDTH)/2,SPEED,0);
 }
  
 void canned() {
