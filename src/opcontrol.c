@@ -57,6 +57,7 @@ void stopdrive();
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+int dstat=1;
 int leftspeed,rightspeed;
 #define DONT_MOVE 0
 void setmotors(){ 
@@ -69,7 +70,7 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	static int callcount=0;
-	if(callcount>10) {
+	if(callcount>10&&dstat==1) {
 		printf("%d\t%d\t",turn,forward);
 		printpos(&ltank);
 		printball();
@@ -87,10 +88,11 @@ void controldrive(int turn, int forward) {
 
 	//DO NOT RESET THE ENCODERS!!!!!!!!
 	
-	simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
-	encoderReset(r_encoder);
-	encoderReset(l_encoder);
+	//simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
+	//encoderReset(r_encoder);
+	//encoderReset(l_encoder);
 	//simtank(&ltank,1,1);
+	//TODO: encoders are degrees not radians
 	setmotors();
 }
 void opdrive() {

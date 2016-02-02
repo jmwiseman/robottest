@@ -60,3 +60,4 @@
 //global varibles
  Ultrasonic usR;
  Ultrasonic usL;
+ void controldrive(int turn, int forward);

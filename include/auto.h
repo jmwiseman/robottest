@@ -12,3 +12,5 @@ double ballx;
 double bally;
 void seeing_ball();
 void printball();
+void canned();
+
