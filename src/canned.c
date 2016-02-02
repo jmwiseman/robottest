@@ -54,6 +54,9 @@ void canned() {
 	//s(12);	
 	//l(PI FR);
 	l(atan((W/2)/(2+(W/2)))*10);
+	suck(MAX_SPEED);
 	s(sqrt(pow(W/2,2)+pow(2+(W/2),2)));
+	s(12);
+	suck(0);
 	printf("done autonav\n\r");
 }

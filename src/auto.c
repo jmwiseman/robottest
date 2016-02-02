@@ -280,7 +280,14 @@ void elf() {
 	//TODO: end using range sensor
 
 }
+void suck(int speed) {//oposite of direction in opcontrol
+	motorSet(MO_INTAKE,-speed);
+}
+void shoot(int speed) {
+	motorSet(MO_FLY1,speed);
+	motorSet(MO_FLY2,-speed);
+}
 void autonomous() {
 //	drivetogoal(&ltank);
-	canned();
+	canned(); 
 }

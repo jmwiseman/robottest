@@ -13,4 +13,5 @@ double bally;
 void seeing_ball();
 void printball();
 void canned();
-
+void suck(int speed);
+void shoot(int speed);
