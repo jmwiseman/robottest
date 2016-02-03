@@ -283,6 +283,9 @@ void elf() {
 void suck(int speed) {//oposite of direction in opcontrol
 	motorSet(MO_INTAKE,-speed);
 }
+void load(int speed) {
+	motorSet(MO_CONVEYER1,speed);
+}
 void shoot(int speed) {
 	motorSet(MO_FLY1,speed);
 	motorSet(MO_FLY2,-speed);
