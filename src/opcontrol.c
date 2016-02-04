@@ -76,6 +76,10 @@ void controldrive(int turn, int forward) {
 		printball();
 		printf("\n\r");
 	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+	//	non canned code
+		simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
+		encoderReset(r_encoder);
+		encoderReset(l_encoder);
 	
 		callcount=0;
 	}
@@ -86,11 +90,7 @@ void controldrive(int turn, int forward) {
 	leftspeed+=turn;
 	rightspeed+=turn;
 
-	//DO NOT RESET THE ENCODERS!!!!!!!!
 	
-	//simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
-	//encoderReset(r_encoder);
-	//encoderReset(l_encoder);
 	//simtank(&ltank,1,1);
 	//TODO: encoders are degrees not radians
 	setmotors();

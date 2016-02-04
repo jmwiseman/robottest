@@ -35,11 +35,16 @@ int inches(int l) {
 int gofor(int llen, int rlen, int turn, int forward) {
 	encoderReset(r_encoder);
 	encoderReset(l_encoder);
+	int ol=0;
+	int or=0;
 	dstat=0;
 	printf("going for %d\t%d degrees\n\r",llen,rlen);
 	while((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen)){
 		c_status("gofor",llen);
 		controldrive(turn,forward);
+		simtank(&ltank,encoderGet(l_encoder-ol)-ol,encoderGet(r_encoder)-or);
+		ol=encoderGet(l_encoder);
+		or=encoderGet(r_encoder);
 		delay(20);
 	}
 	dstat=1;
