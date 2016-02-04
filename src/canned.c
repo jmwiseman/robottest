@@ -76,15 +76,16 @@ void canned() {
 	s(sqrt(pow(W/2,2)+pow(2+(W/2),2)));//go to bals
 	load(CONVEYER_SPEED);
 	s(7);//suck up balls
-	suck(0);
 	s(8);//continue
 	delay(50);
 	r((
 		(PI/2)
-		- atan((W/2)/(2+(W/2)))
+		-(PI/16)
+	//	- atan((W/2)/(2+(W/2)))
 
 	)FR);
-	//s(2);
+	s(9);
+	suck(0);
 	fire(4);
 //	r( atan((W/2)/(2+(W/2))+ )FR);//point strait 
 	//s(2);
