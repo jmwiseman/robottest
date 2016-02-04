@@ -1,8 +1,6 @@
-#include<auto.h>
-#include<API.h>
-#include<tank.h>
-#include<robot.h>
-#include<main.h>
+#include"tank.h"
+#include"robot.h"
+#include"stdio.h"
 #include<math.h>
 #define SPEED 64
 #define WIDTH 6.25
@@ -40,6 +38,7 @@ int gofor(int llen, int rlen, int turn, int forward) {
 	int or=0;
 	dstat=0;
 	printf("going for %d\t%d degrees\n\r",llen,rlen);
+#ifndef SIM
 	while((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen)){
 		c_status("gofor",llen);
 		controldrive(turn,forward);
@@ -48,6 +47,7 @@ int gofor(int llen, int rlen, int turn, int forward) {
 		or=encoderGet(r_encoder);
 		delay(20);
 	}
+#endif
 	dstat=1;
 	controldrive(0,0);
 	printf("Motion complete, expected:");

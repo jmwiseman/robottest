@@ -1,8 +1,6 @@
-#include<auto.h>
-#include<API.h>
-#include<tank.h>
-
-#include<robot.h>
+#include"tank.h"
+#include<stdio.h>
+#include"robot.h"
 double f_tile_len=20;
 #define f_center_x f_tile_len
 #define f_center_y 2*f_tile_len
@@ -83,13 +81,13 @@ void b_driveto(tank *v,double x, double y, double r) {
 	while(distanceto(*v,x,y)>r) {
 		//printf("DISTANCE: %f\n\r",distanceto(v,x,y));
 		driveto(*v,x,y);
-		delay(20);
+//		delay(20);
 	}
 }
 void drivetogoal(tank *v) {
 	//drive near center of map then use elijah line follow code + range sensor
 	//reset position to in front of goal
 	b_driveto(v,f_center_x,f_center_y,20);
-	elf();
+//	elf();
 }
 
