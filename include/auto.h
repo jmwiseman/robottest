@@ -16,3 +16,4 @@ void canned();
 void suck(int speed);
 void shoot(int speed);
 void load(int speed);
+void loadall(int speed);

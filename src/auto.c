@@ -286,6 +286,13 @@ void suck(int speed) {//oposite of direction in opcontrol
 void load(int speed) {
 	motorSet(MO_CONVEYER1,speed);
 }
+void loadall(int speed) {
+	motorSet(MO_CONVEYER1,speed);
+	while(digitalRead(CON_SWITCH))
+		delay(10);
+	motorSet(MO_CONVEYER1,0);
+}
+
 void shoot(int speed) {
 	motorSet(MO_FLY1,speed);
 	motorSet(MO_FLY2,-speed);

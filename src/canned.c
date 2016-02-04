@@ -56,8 +56,9 @@ int l(int a){
 	return gofor(((radians((a)*WIDTH)/2)RF),((radians((a)*WIDTH)/2)RF),-speed*side,0);
 }
 void fire(int n) {
-	load(CONVEYER_SPEED);
 	shoot(MAX_SPEED);
+	delay(2000);
+	load(CONVEYER_SPEED);
 	delay(2000*n);
 	load(0);
 	shoot(0);
@@ -74,23 +75,19 @@ void canned() {
 	FR);//point to first balls
 	suck(MAX_SPEED);
 	s(sqrt(pow(W/2,2)+pow(2+(W/2),2)));//go to bals
-	load(CONVEYER_SPEED);
+	loadall(CONVEYER_SPEED);
 	s(7);//suck up balls
 	s(8);//continue
 	delay(50);
 	r((
 		(PI/2)
-		-(PI/16)
+		//-(PI/16)
 	//	- atan((W/2)/(2+(W/2)))
 
 	)FR);
 	s(9);
 	suck(0);
 	fire(4);
-//	r( atan((W/2)/(2+(W/2))+ )FR);//point strait 
-	//s(2);
-	//l(PI RF);//point to shot position
-	//l((tan(2)+PI/4)FR);//point to shot position
 	load(0);
 	printf("done autonav\n\r");
 }
