@@ -2,7 +2,7 @@
 #include<tank.h>
 #include<math.h>
 #ifdef SIM
-#include"stdio.h"
+#include<stdio.h>
 #else
 #include <API.h>
 #include <auto.h>

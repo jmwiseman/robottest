@@ -20,6 +20,10 @@ int speed=SPEED;
 tank ctank;
 
 #define WEEL_SIZE (2+(1/16))
+void check_conveyer() {
+	if(!digitalRead(CON_SWITCH))
+		motorSet(MO_CONVEYER1,0);
+}
 void c_status(char *message, int n) {
 	static int callcount=0;
 	if(callcount >10) {
@@ -47,6 +51,7 @@ int gofor(int llen, int rlen, int turn, int forward) {
 	printf("going for %d\t%d degrees with dir %d\t%d\n\r",llen,rlen,turn,forward);
 #ifndef SIM
 	while((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen)){
+		check_conveyer();
 		c_status("gofor",llen);
 		controldrive(turn,forward);
 		simtank(&ltank,encoderGet(l_encoder-ol)-ol,encoderGet(r_encoder)-or);
@@ -103,11 +108,10 @@ void canned() {
 	s(7);//suck up balls
 	s(8);//continue
 	delay(50);
-	r((
+	l((
 		(PI/2)
-		//-(PI/16)
-	//	- atan((W/2)/(2+(W/2)))
-
+		-(PI/16)
+		-atan((W/2)/(2+(W/2)))
 	)FR);
 	s(9);
 	suck(0);

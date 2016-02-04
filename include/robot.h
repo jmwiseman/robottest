@@ -60,6 +60,6 @@
 
 #define CON_SWITCH 11
 //global varibles
- Ultrasonic usR;
- Ultrasonic usL;
- void controldrive(int turn, int forward);
+Ultrasonic usR;
+Ultrasonic usL;
+void controldrive(int turn, int forward);
