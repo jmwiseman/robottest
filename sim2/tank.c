@@ -12,7 +12,7 @@ double na(double t) {//normalize angle
 	return fmod(t,2*PI);
 }
 extern void controldrive(int turn,int forward);
-void rotate(tank *v, int dh) {
+void rotate(tank *v, double dh) {
 	v->h=v->h-dh;
 	v->h=na(v->h);
 	
@@ -60,7 +60,8 @@ double headingto(tank v, double x, double y) {//return heading to target from cu
 void printpos(tank *v) {
 	double x=f_center_x;
 	double y=f_center_y;
-	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
+//	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
+	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t ",v->x,v->y,v->h);
 }
 void driveto(tank v, double x, double y) {
 	//double turn=(headingto(v,x,y)-v.h)*10;//This is wrong

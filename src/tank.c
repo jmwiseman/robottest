@@ -1,8 +1,13 @@
-#include<auto.h>
-#include<API.h>
-#include<tank.h>
-
 #include<robot.h>
+#include<tank.h>
+#include<math.h>
+#ifdef SIM
+#include"stdio.h"
+#else
+#include <API.h>
+#include <auto.h>
+#include <main.h>
+#endif
 double f_tile_len=20;
 #define f_center_x f_tile_len
 #define f_center_y 2*f_tile_len
@@ -14,7 +19,7 @@ double na(double t) {//normalize angle
 	return fmod(t,2*PI);
 }
 extern void controldrive(int turn,int forward);
-void rotate(tank *v, int dh) {
+void rotate(tank *v, double dh) {
 	v->h=v->h-dh;
 	v->h=na(v->h);
 	
@@ -62,7 +67,8 @@ double headingto(tank v, double x, double y) {//return heading to target from cu
 void printpos(tank *v) {
 	double x=f_center_x;
 	double y=f_center_y;
-	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
+//	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
+	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t ",v->x,v->y,v->h);
 }
 void driveto(tank v, double x, double y) {
 	//double turn=(headingto(v,x,y)-v.h)*10;//This is wrong
@@ -83,13 +89,13 @@ void b_driveto(tank *v,double x, double y, double r) {
 	while(distanceto(*v,x,y)>r) {
 		//printf("DISTANCE: %f\n\r",distanceto(v,x,y));
 		driveto(*v,x,y);
-		delay(20);
+//		delay(20);
 	}
 }
 void drivetogoal(tank *v) {
 	//drive near center of map then use elijah line follow code + range sensor
 	//reset position to in front of goal
 	b_driveto(v,f_center_x,f_center_y,20);
-	elf();
+//	elf();
 }
 

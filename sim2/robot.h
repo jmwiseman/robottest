@@ -11,6 +11,8 @@ void controldrive(int turn, int foreward);
 
 void suck(int a);
 int dstat;
+
+void loadall(int a);
 #define SIM 1
 //whatever
 #define MAX_SPEED 64

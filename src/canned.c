@@ -1,14 +1,19 @@
-#include<auto.h>
-#include<API.h>
-#include<tank.h>
 #include<robot.h>
-#include<main.h>
+#include<tank.h>
 #include<math.h>
+#ifdef SIM
+#include"stdio.h"
+#else
+#include <API.h>
+#include <auto.h>
+#include <main.h>
+
+#endif
 #define SPEED 64
 #define WIDTH 6.25
 #define W WIDTH
-#define FR *100
-#define RF /100
+#define FR *100.0
+#define RF /100.0
 extern int dstat;
 int side=-1;
 int speed=SPEED;
@@ -39,7 +44,8 @@ int gofor(int llen, int rlen, int turn, int forward) {
 	int ol=0;
 	int or=0;
 	dstat=0;
-	printf("going for %d\t%d degrees\n\r",llen,rlen);
+	printf("going for %d\t%d degrees with dir %d\t%d\n\r",llen,rlen,turn,forward);
+#ifndef SIM
 	while((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen)){
 		c_status("gofor",llen);
 		controldrive(turn,forward);
@@ -48,6 +54,7 @@ int gofor(int llen, int rlen, int turn, int forward) {
 		or=encoderGet(r_encoder);
 		delay(20);
 	}
+#endif
 	dstat=1;
 	controldrive(0,0);
 	printf("Motion complete, expected:");
@@ -71,6 +78,7 @@ int l(int a){
 	return gofor(((radians((a)*WIDTH)/2)RF),((radians((a)*WIDTH)/2)RF),-speed*side,0);
 }
 void fire(int n) {
+	printf("fire\n\r\n\r");
 	shoot(MAX_SPEED);
 	delay(2000);
 	load(CONVEYER_SPEED);
@@ -85,9 +93,10 @@ void canned() {
 	//l(PI FR);
 	speed=SPEED;
 	s(5);
+	printf("point to first balls\n\r");
 	l(
 		atan((W/2)/(2+(W/2)))
-	FR);//point to first balls
+	FR);
 	suck(MAX_SPEED);
 	s(sqrt(pow(W/2,2)+pow(2+(W/2),2)));//go to bals
 	loadall(CONVEYER_SPEED);
