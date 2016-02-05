@@ -299,11 +299,13 @@ void suck(int speed) {//oposite of direction in opcontrol
 	motorSet(MO_INTAKE,-speed);
 }
 void load(int speed) {
+
 	motorSet(MO_CONVEYER1,speed);
 }
 void loadall(int speed) {
 	motorSet(MO_CONVEYER1,speed);
 	while(digitalRead(CON_SWITCH))
+		controldrive(0,0);
 		delay(10);
 	motorSet(MO_CONVEYER1,0);
 }

@@ -15,7 +15,7 @@
 #define FR *100.0
 #define RF /100.0
 extern int dstat;
-int side=-1;
+int side=-1;//-1 is blue
 int speed=SPEED;
 int sucking=0;
 tank ctank;
@@ -106,7 +106,7 @@ void check_conveyer() {
 
 void wander() {
 	printf("Begin to wander. \n\r");
-	//r((3*PI/4)FR);
+	r((3*PI/4)FR);
 	int i=0;
 	double d=0;
 	for(i=0;i<10;i++) {
@@ -115,13 +115,13 @@ void wander() {
 		load(CONVEYER_SPEED);
 		sucking=1;
 		if(i<PI/4)
-			d=4*sec(i/10.);
+			d=2*sec(i/10.);
 		else 
 			d=sqrt(8);
 		printf("feet:%f\n\r",d);
 		d=d*12;
 		s(d);
-		r((PI*(4)*.3) FR);
+		l(((PI*(4)*.3)+0.1) FR);//should be 180 deg PI
 		s(d);
 		if(!sucking){ 
 			printf("firing because ball was found\n\r");
@@ -131,7 +131,7 @@ void wander() {
 		}
 		else
 			printf("No ball.\n\r");
-		r(((PI+(i/10.)) FR));//so the direction is offset by one radian per iteration
+		l(((PI+(i/10.)) FR));//so the direction is offset by one radian per iteration
 
 
 	}
@@ -163,6 +163,4 @@ void canned() {
 	fire(4);
 	load(0);
 	printf("done canned");
-	wander();
-	printf("done autonav\n\r");
 }
