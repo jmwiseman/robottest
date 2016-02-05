@@ -15,7 +15,7 @@
 #define FR *100.0
 #define RF /100.0
 extern int dstat;
-int side=-1;//-1 is blue
+int side=1;//-1 is blue
 int speed=SPEED;
 int sucking=0;
 tank ctank;
@@ -96,7 +96,7 @@ double sec(double a) {
 
 void check_conveyer() {
 	printf("checking..");
-	if(!digitalRead(CON_SWITCH)){
+	if(!digitalRead(11)){
 		printf("ball found\n\r");
 		load(0);
 		suck(0);
@@ -138,6 +138,7 @@ void wander() {
 }
  
 void canned() {
+	delay(5000);
 	printf("autonav\n\r");
 	//s(12);	
 	//l(PI FR);
@@ -155,7 +156,7 @@ void canned() {
 	delay(50);
 	l((
 		(PI/2)
-		-(PI/16)
+		-(PI/8)
 		-atan((W/2)/(2+(W/2)))
 	)FR);
 	s(9);

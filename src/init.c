@@ -30,7 +30,8 @@ void initializeIO() {
 void initialize() {
 	r_encoder = encoderInit(ENC_RIGHT_TOP,ENC_RIGHT_BOT,1);
 	l_encoder = encoderInit(ENC_LEFT_TOP,ENC_LEFT_BOT,0);
-	pinMode(CON_SWITCH,INPUT);
+	pinMode(11,INPUT);
+	imeInitializeAll();
 	//lcdinit(LCD_PORT);
 
 }
