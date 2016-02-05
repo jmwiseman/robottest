@@ -314,6 +314,7 @@ void shoot(int speed) {
 }
 void autonomous() {
 //	drivetogoal(&ltank);
-//	canned(); 
-wander();
+	canned(); 
+	wander();
+	printf("done autonave\n\r");
 }
