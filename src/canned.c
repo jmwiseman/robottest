@@ -115,7 +115,7 @@ void wander() {
 		load(CONVEYER_SPEED);
 		sucking=1;
 		if(i<PI/4)
-			d=4*sec(i);
+			d=4*sec(i/10.);
 		else 
 			d=sqrt(8);
 		printf("feet:%f\n\r",d);
@@ -131,7 +131,7 @@ void wander() {
 		}
 		else
 			printf("No ball.\n\r");
-		r(((PI+i) FR));//so the direction is offset by one radian per iteration
+		r(((PI+(i/10.)) FR));//so the direction is offset by one radian per iteration
 
 
 	}
