@@ -17,13 +17,11 @@
 extern int dstat;
 int side=-1;
 int speed=SPEED;
+int sucking=0;
 tank ctank;
 
+void check_conveyer() ;
 #define WEEL_SIZE (2+(1/16))
-void check_conveyer() {
-	if(!digitalRead(CON_SWITCH))
-		motorSet(MO_CONVEYER1,0);
-}
 void c_status(char *message, int n) {
 	static int callcount=0;
 	if(callcount >10) {
@@ -91,6 +89,53 @@ void fire(int n) {
 	load(0);
 	shoot(0);
 }
+double sec(double a) {
+	return 1/cos(a);
+}
+
+
+void check_conveyer() {
+	printf("checking..");
+	if(!digitalRead(CON_SWITCH)){
+		printf("ball found\n\r");
+		load(0);
+		suck(0);
+		sucking=0;
+	}
+}
+
+void wander() {
+	printf("Begin to wander. \n\r");
+	//r((3*PI/4)FR);
+	int i=0;
+	double d=0;
+	for(i=0;i<10;i++) {
+		printf("wander %d\n\r",i);
+		suck(MAX_SPEED);
+		load(CONVEYER_SPEED);
+		sucking=1;
+		if(i<PI/4)
+			d=4*sec(i);
+		else 
+			d=sqrt(8);
+		printf("feet:%f\n\r",d);
+		d=d*12;
+		s(d);
+		r((PI*(4)*.3) FR);
+		s(d);
+		if(!sucking){ 
+			printf("firing because ball was found\n\r");
+			l(i FR);
+			fire(4);
+			r(i FR);
+		}
+		else
+			printf("No ball.\n\r");
+		r(((PI+i) FR));//so the direction is offset by one radian per iteration
+
+
+	}
+}
  
 void canned() {
 	printf("autonav\n\r");
@@ -117,5 +162,7 @@ void canned() {
 	suck(0);
 	fire(4);
 	load(0);
+	printf("done canned");
+	wander();
 	printf("done autonav\n\r");
 }

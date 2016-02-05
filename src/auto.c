@@ -230,8 +230,23 @@ void arc10(){//physical test for segment path navigation
 		delay(50);
 	}
 	undonav();
-}
 
+}
+void aim(tank *v, int side) {
+	int *ls=asense();
+	while(*(ls+1)<-lthreshold){
+		int turn;
+		if(*(ls+2)<-lthreshold)
+			turn=side;
+		else
+			turn=-side;
+		controldrive(turn*AIMSPEED,0);
+		delay(20);
+		ls=asense();
+	}
+	v->h=(side*(PI/4));
+	
+}
 void elf() {
 	int bf=0;
 	going=1;
@@ -299,5 +314,6 @@ void shoot(int speed) {
 }
 void autonomous() {
 //	drivetogoal(&ltank);
-	canned(); 
+//	canned(); 
+wander();
 }
