@@ -57,8 +57,6 @@
 #define ENC_LEFT_TOP  3
 #define ENC_LEFT_BOT 4
 #define LCD_PORT uart1
-#define IME_FLY_LEFT 0
-#define IME_FLY_LEFT 1
 
 #define CON_SWITCH 11
 //global varibles

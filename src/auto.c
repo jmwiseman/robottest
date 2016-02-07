@@ -303,21 +303,10 @@ void load(int speed) {
 	motorSet(MO_CONVEYER1,speed);
 }
 void loadall(int speed) {
-	int elapsed=0;
-	const int limit =3000/10;
 	motorSet(MO_CONVEYER1,speed);
-	for(elapsed=0;elapsed<limit;elapsed++){
+	while(digitalRead(CON_SWITCH))
 		controldrive(0,0);
-		elapsed=elapsed+1;
 		delay(10);
-		printf("waited%d ",elapsed);
-		if(!digitalRead(11))
-		{
-			printf("ball\n\r");
-			break;
-		}
-
-	}
 	motorSet(MO_CONVEYER1,0);
 }
 

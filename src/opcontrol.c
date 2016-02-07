@@ -143,14 +143,6 @@ void drivestop() {
 }
 
 void opflywheel() {
-	static int callcount=0;
-	int lv,rv;
-	if(callcount==10){
-		callcount=0;
-	//	imeGetVelocity(IME_FLY_LEFT, &lv);
-	//	imeGetVelocity(IME_FLY_RIGHT, &rv);
-		printf("FLYSPEED: L:%d\t L:%d\n\r",lv,rv);
-	}
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
 		printf("go!\n\r");
