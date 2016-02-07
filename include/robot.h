@@ -57,6 +57,9 @@
 #define ENC_LEFT_TOP  3
 #define ENC_LEFT_BOT 4
 #define LCD_PORT uart1
+
+#define CON_SWITCH 11
 //global varibles
- Ultrasonic usR;
- Ultrasonic usL;
+Ultrasonic usR;
+Ultrasonic usL;
+void controldrive(int turn, int forward);

@@ -1,13 +1,6 @@
-#include<robot.h>
-#include<tank.h>
-#include<math.h>
-#ifdef SIM
+#include"tank.h"
 #include<stdio.h>
-#else
-#include <API.h>
-#include <auto.h>
-#include <main.h>
-#endif
+#include"robot.h"
 double f_tile_len=20;
 #define f_center_x f_tile_len
 #define f_center_y 2*f_tile_len

@@ -57,6 +57,7 @@ void stopdrive();
  *
  * This task should never exit; it should end with some kind of infinite loop, even if empty.
  */
+int dstat=1;
 int leftspeed,rightspeed;
 #define DONT_MOVE 0
 void setmotors(){ 
@@ -69,11 +70,16 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	static int callcount=0;
-	if(callcount>10) {
+	if(callcount>10&&dstat==1) {
 		printf("%d\t%d\t",turn,forward);
 		printpos(&ltank);
+		printball();
 		printf("\n\r");
 	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
+	//	non canned code
+		simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
+		encoderReset(r_encoder);
+		encoderReset(l_encoder);
 	
 		callcount=0;
 	}
@@ -84,12 +90,9 @@ void controldrive(int turn, int forward) {
 	leftspeed+=turn;
 	rightspeed+=turn;
 
-	//DO NOT RESET THE ENCODERS!!!!!!!!
 	
-	simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
-	encoderReset(r_encoder);
-	encoderReset(l_encoder);
 	//simtank(&ltank,1,1);
+	//TODO: encoders are degrees not radians
 	setmotors();
 }
 void opdrive() {
@@ -162,7 +165,7 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 	}
 	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET)){
 		printf("autodriveto\n\r");
-		drivetogoal(ltank);
+		loadall(CONVEYER_SPEED);
 	}
 }
 
@@ -187,8 +190,8 @@ void operatorControl() {
 		opintake();
 		opconveyer();
 		opflywheel();
+		seeing_ball();
 		opautotest();
-		print_us();
 		delay(20);
 		//print("hi");
 
