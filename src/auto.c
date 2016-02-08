@@ -288,8 +288,14 @@ void load(int speed) {
 }
 void loadall(int speed) {
 	motorSet(MO_CONVEYER1,speed);
-	while(digitalRead(CON_SWITCH))
+	int limit=2000;
+	int counter=0;
+
+	for(counter=0;counter<limit;counter++) {
+		if(digitalRead(CON_SWITCH))
+			break;
 		delay(10);
+	}
 	motorSet(MO_CONVEYER1,0);
 }
 
@@ -299,5 +305,6 @@ void shoot(int speed) {
 }
 void autonomous() {
 //	drivetogoal(&ltank);
+	delay(5000);
 	canned(); 
 }
