@@ -70,11 +70,15 @@ void setmotors(){
 }
 void controldrive(int turn, int forward) {
 	static int callcount=0;
+	int lfly,rfly;
 	if(callcount>10&&dstat==1) {
 		printf("%d\t%d\t",turn,forward);
 		printpos(&ltank);
 		printball();
 		printf("\n\r");
+		imeGetVelocity(0,&lfly);
+		imeGetVelocity(1,&rfly);
+		printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
 	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
 	//	non canned code
 		simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
@@ -95,6 +99,18 @@ void controldrive(int turn, int forward) {
 	//TODO: encoders are degrees not radians
 	setmotors();
 }
+int controlbang(int target, int current) {
+
+}
+int control(int target, int current, void *state){
+	return controlbang(target, current);
+}
+
+void controlfly(int s) {
+	
+
+}
+
 void opdrive() {
 	int joyforward = (abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_FORWARD) : 0;//TODO: firgure out if this is cached or if we need to ourselves
 	int joyturn = (abs((joystickGetAnalog(1,JOY_TURN))) > JOY_DEAD) ? joystickGetAnalog(1,JOY_TURN) : 0;
@@ -146,13 +162,15 @@ void opflywheel() {
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
 		printf("go!\n\r");
-		motorSet(MO_FLY1,FLY_SPEED);
-		motorSet(MO_FLY2,-FLY_SPEED);
+//		motorSet(MO_FLY1,FLY_SPEED);
+//		motorSet(MO_FLY2,-FLY_SPEED);
+		controlfly(FLY_SPEED);
 	}
 	else
 	{
-		motorSet(MO_FLY1,0);
-		motorSet(MO_FLY2,0);
+		controlfly(0);
+//		motorSet(MO_FLY1,0);
+//		motorSet(MO_FLY2,0);
 	}
 }
 void opautotest() {//hook for quickly testing autonomous subnavigation
@@ -193,7 +211,6 @@ void operatorControl() {
 		seeing_ball();
 		opautotest();
 		delay(20);
-		//print("hi");
 
 	}
 }

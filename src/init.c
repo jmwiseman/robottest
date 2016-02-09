@@ -2,6 +2,7 @@
 #include <API.h>
 #include <robot.h>
 
+int imecount=0;
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
  * VEX Cortex is starting up. As the scheduler is still paused, most API functions will fail.
@@ -28,9 +29,11 @@ void initializeIO() {
  * can be implemented in this task if desired.
  */
 void initialize() {
+	imecount=imeInitializeAll();
 	r_encoder = encoderInit(ENC_RIGHT_TOP,ENC_RIGHT_BOT,1);
 	l_encoder = encoderInit(ENC_LEFT_TOP,ENC_LEFT_BOT,0);
 	pinMode(CON_SWITCH,INPUT);
+
 	//lcdinit(LCD_PORT);
 
 }
