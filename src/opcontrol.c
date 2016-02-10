@@ -197,25 +197,26 @@ void opflywheel(int *current)
 		imeGetVelocity(1,&rfly);
 		printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
 
+		int adjustment = 1;
 		if(FLYCONTROLSPEED < lfly)
 		{
-			ltemp -= 5;
+			ltemp -= adjustment;
 		}
 		else if(FLYCONTROLSPEED > lfly)
 		{
-			ltemp += 5;
+			ltemp += adjustment;
 		}
 
 		if(-FLYCONTROLSPEED > rfly)
 		{
-			rtemp -= 5;
+			rtemp -= adjustment;
 		}
 		else if(-FLYCONTROLSPEED < rfly)
 		{
-			rtemp += 5;
+			rtemp += adjustment;
 		}
 		lfly = abs(ltemp);//TODO: these are actually backwards
-		rfly = abs(rtemp);
+		rfly = abs(rtemp);//TODO: get rid of abs() gracefully
 
 
 		motorSet(MO_FLY1,ltemp);
