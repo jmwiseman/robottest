@@ -101,7 +101,7 @@ void controldrive(int turn, int forward) {
 }
 int lfly=0;
 int rfly=0;
-//*
+/*
 int controlbang(int target, int current) {
 
 	//return (current<target-C_TOL) ? ((current>target+C_TOL) ? () : () ) :(target+C_BUMP); 
@@ -116,23 +116,7 @@ int control(int target, int current, void *state){
 	return controlbang(target, current);
 }
 //*/
-int current_speed;
-void controlfly(int *current, int flytargetspeed)
-{
-	if (!current)
-	{
-		motorSet(MO_FLY1,0);
-		motorSet(MO_FLY2,0);
-		return;
-	}
-	int lfly,rfly;
-	imeGetVelocity(0,&lfly);
-	imeGetVelocity(1,&rfly);
-	printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
-	
-	// control(s,);
 
-}
 
 void opdrive() {
 	int joyforward = (abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_FORWARD) : 0;//TODO: firgure out if this is cached or if we need to ourselves
@@ -180,54 +164,62 @@ void drivestop() {
 	rightspeed=0;
 	setmotors();
 }
-
-void opflywheel(int *current)
+void controlfly(int speed)
 {
+	if(!speed)
+	{
+		motorSet(MO_FLY1,0);
+		motorSet(MO_FLY2,0);
+		return;
+	}
+
+	printf("FLY SPEED: L %d\t R %d  go!\n\r",lfly,rfly);
+
+	int ltemp = lfly;
+	int rtemp = rfly;
+
+	imeGetVelocity(0,&lfly);
+	imeGetVelocity(1,&rfly);
+
+	int adjustment = 1;
+	if(lfly > -speed)
+	{
+		ltemp -= adjustment;
+	}
+	else if(lfly < -speed)
+	{
+		ltemp += adjustment;
+	}
+
+	if(rfly > speed)
+	{
+		rtemp -= adjustment;
+	}
+	else if(rfly < speed)
+	{
+		rtemp += adjustment;
+	}
+
+	lfly = ltemp;
+	rfly = rtemp;
+
+	motorSet(MO_FLY1,rtemp);
+	motorSet(MO_FLY2,ltemp);
+}
+void opflywheel()
+{
+	controlfly((joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)*FLYCONTROLSPEED);
+	//same as
+	/*
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
-		printf("go!\n\r");
-		//motorSet(MO_FLY1,FLY_SPEED);
-		//motorSet(MO_FLY2,-FLY_SPEED);
-		//controlfly(FLY_SPEED);
-
-		int ltemp = lfly;
-		int rtemp = rfly;
-
-		imeGetVelocity(0,&lfly);
-		imeGetVelocity(1,&rfly);
-		printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
-
-		int adjustment = 1;
-		if(FLYCONTROLSPEED < lfly)
-		{
-			ltemp -= adjustment;
-		}
-		else if(FLYCONTROLSPEED > lfly)
-		{
-			ltemp += adjustment;
-		}
-
-		if(-FLYCONTROLSPEED > rfly)
-		{
-			rtemp -= adjustment;
-		}
-		else if(-FLYCONTROLSPEED < rfly)
-		{
-			rtemp += adjustment;
-		}
-		lfly = abs(ltemp);//TODO: these are actually backwards
-		rfly = abs(rtemp);//TODO: get rid of abs() gracefully
-
-
-		motorSet(MO_FLY1,ltemp);
-		motorSet(MO_FLY2,-rtemp);
+		controlfly(FLYCONTROLSPEED);
 	}
 	else
 	{
-		//controlfly(&current,FLYCONTROLSPEED);
-		motorSet(MO_FLY1,0);
-		motorSet(MO_FLY2,0);
+		controlfly(0);
 	}
+	//*/
 }
 void opautotest() {//hook for quickly testing autonomous subnavigation
 	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B)){
@@ -258,14 +250,14 @@ void operatorControl() {
 	encoderReset(r_encoder);
 	encoderReset(l_encoder);
 	//autonomous();
-	int flywheel_power = 0;
+
 	while (1)
 	{
 
 		opdrive();
 		opintake();
 		opconveyer();
-		opflywheel(&flywheel_power);
+		opflywheel();
 		seeing_ball();
 		opautotest();
 		delay(20);
