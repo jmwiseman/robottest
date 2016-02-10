@@ -100,6 +100,12 @@ void controldrive(int turn, int forward) {
 	setmotors();
 }
 int controlbang(int target, int current) {
+	//return (current<target-C_TOL) ? ((current>target+C_TOL) ? () : () ) :(target+C_BUMP); 
+	int new;
+	if(current < target-C_TOL)
+		new=target+C_BUMP;
+	else if
+
 
 }
 int control(int target, int current, void *state){
