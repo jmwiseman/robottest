@@ -306,10 +306,11 @@ void load(int speed) {
 void loadall(int speed) {
 	int elapsed=0;
 	const int limit =2000/10;
-	motorSet(MO_CONVEYER1,speed);
+	load(speed);
+	suck(speed);
 	for(elapsed=0;elapsed<limit;elapsed++) {
-		if(digitalRead(CON_SWITCH))
-		break;
+		if(!digitalRead(CON_SWITCH))
+			break;
 		delay(10);
 	}
 	motorSet(MO_CONVEYER1,0);

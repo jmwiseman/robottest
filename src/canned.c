@@ -159,6 +159,7 @@ void canned() {
 		-atan((W/2)/(2+(W/2)))
 	)FR);
 	s(9);
+	s(15);
 	suck(0);
 	fire(4);
 	load(0);

@@ -230,7 +230,7 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 		ltank.h=0;
 	}
 	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET)){
-		printf("autodriveto\n\r");
+		printf("op_load_all\n\r");
 		loadall(CONVEYER_SPEED);
 	}
 }
