@@ -173,13 +173,14 @@ void controlfly(int speed)
 		return;
 	}
 
-	printf("FLY SPEED: L %d\t R %d  go!\n\r",lfly,rfly);
 
 	int ltemp = lfly;
 	int rtemp = rfly;
 
 	imeGetVelocity(0,&lfly);
 	imeGetVelocity(1,&rfly);
+
+	printf("FLY SPEED: L %d\t R %d  go!\n\r",lfly,rfly);
 
 	int adjustment = 1;
 	if(lfly > -speed)
@@ -208,9 +209,9 @@ void controlfly(int speed)
 }
 void opflywheel()
 {
-	controlfly((joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)*FLYCONTROLSPEED);
+	//controlfly((joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)*FLYCONTROLSPEED);
 	//same as
-	/*
+	//*
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
 		controlfly(FLYCONTROLSPEED);
