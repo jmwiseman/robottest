@@ -99,23 +99,24 @@ void controldrive(int turn, int forward) {
 	//TODO: encoders are degrees not radians
 	setmotors();
 }
+int lfly=0;
+int rfly=0;
+/*
 int controlbang(int target, int current) {
+
 	//return (current<target-C_TOL) ? ((current>target+C_TOL) ? () : () ) :(target+C_BUMP); 
 	int new;
 	if(current < target-C_TOL)
 		new=target+C_BUMP;
-	else if
-
-
+	else if(current > target+C_TOL)
+		new=target-C_BUMP;
+	return new;
 }
 int control(int target, int current, void *state){
 	return controlbang(target, current);
 }
+//*/
 
-void controlfly(int s) {
-	
-
-}
 
 void opdrive() {
 	int joyforward = (abs(joystickGetAnalog(1,JOY_FORWARD)) > JOY_DEAD) ? joystickGetAnalog(1,JOY_FORWARD) : 0;//TODO: firgure out if this is cached or if we need to ourselves
@@ -163,21 +164,62 @@ void drivestop() {
 	rightspeed=0;
 	setmotors();
 }
+void controlfly(int speed)
+{
+	if(!speed)
+	{
+		motorSet(MO_FLY1,0);
+		motorSet(MO_FLY2,0);
+		return;
+	}
 
-void opflywheel() {
+	printf("FLY SPEED: L %d\t R %d  go!\n\r",lfly,rfly);
+
+	int ltemp = lfly;
+	int rtemp = rfly;
+
+	imeGetVelocity(0,&lfly);
+	imeGetVelocity(1,&rfly);
+
+	int adjustment = 1;
+	if(lfly > -speed)
+	{
+		ltemp -= adjustment;
+	}
+	else if(lfly < -speed)
+	{
+		ltemp += adjustment;
+	}
+
+	if(rfly > speed)
+	{
+		rtemp -= adjustment;
+	}
+	else if(rfly < speed)
+	{
+		rtemp += adjustment;
+	}
+
+	lfly = ltemp;
+	rfly = rtemp;
+
+	motorSet(MO_FLY1,rtemp);
+	motorSet(MO_FLY2,ltemp);
+}
+void opflywheel()
+{
+	controlfly((joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)*FLYCONTROLSPEED);
+	//same as
+	/*
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
 	{
-		printf("go!\n\r");
-//		motorSet(MO_FLY1,FLY_SPEED);
-//		motorSet(MO_FLY2,-FLY_SPEED);
-		controlfly(FLY_SPEED);
+		controlfly(FLYCONTROLSPEED);
 	}
 	else
 	{
 		controlfly(0);
-//		motorSet(MO_FLY1,0);
-//		motorSet(MO_FLY2,0);
 	}
+	//*/
 }
 void opautotest() {//hook for quickly testing autonomous subnavigation
 	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B)){
@@ -208,8 +250,10 @@ void operatorControl() {
 	encoderReset(r_encoder);
 	encoderReset(l_encoder);
 	//autonomous();
+
 	while (1)
 	{
+
 		opdrive();
 		opintake();
 		opconveyer();

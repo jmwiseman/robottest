@@ -63,3 +63,9 @@
 Ultrasonic usR;
 Ultrasonic usL;
 void controldrive(int turn, int forward);
+
+#define C_TOL 15
+#define C_BUMP 15
+#define FLYCONTROLSPEED 3600
+
+
