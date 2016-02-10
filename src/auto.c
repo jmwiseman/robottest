@@ -215,8 +215,38 @@ void turntoline () {
 void driveincircle() {
 	controldrive(-AUTOSPEED,AUTOSPEED);
 }
+void arc10(){//physical test for segment path navigation
+	printf("test segment navigation2\n");
+	delay(1000);
+	int i=0;
+	resetsegments();
+	for(i=0;i<100;i++){
+		segmentnav(SEG_FORWARD);	
+		delay(50);
+	}
 
+	for(i=0;i<100;i++){
+		segmentnav(SEG_LEFT_BANK);	
+		delay(50);
+	}
+	undonav();
 
+}
+void aim(tank *v, int side) {
+	int *ls=asense();
+	while(*(ls+1)<-lthreshold){
+		int turn;
+		if(*(ls+2)<-lthreshold)
+			turn=side;
+		else
+			turn=-side;
+		controldrive(turn*AIMSPEED,0);
+		delay(20);
+		ls=asense();
+	}
+	v->h=(side*(PI/4));
+	
+}
 void elf() {
 	int bf=0;
 	going=1;
@@ -269,17 +299,18 @@ void suck(int speed) {//oposite of direction in opcontrol
 	motorSet(MO_INTAKE,-speed);
 }
 void load(int speed) {
+
 	motorSet(MO_CONVEYER1,speed);
 }
 void loadall(int speed) {
+	int elapsed=0;
+	const int limit =2000/10;
 	motorSet(MO_CONVEYER1,speed);
-	int limit=2000;
-	int counter=0;
-
-	for(counter=0;counter<limit;counter++) {
-		if(digitalRead(CON_SWITCH))
-			break;
+	while(digitalRead(CON_SWITCH)||elapsed>limit){
+		controldrive(0,0);
+		elapsed=elapsed+1;
 		delay(10);
+
 	}
 	motorSet(MO_CONVEYER1,0);
 }
@@ -290,6 +321,7 @@ void shoot(int speed) {
 }
 void autonomous() {
 //	drivetogoal(&ltank);
-	delay(5000);
 	canned(); 
+	wander();
+	printf("done autonave\n\r");
 }
