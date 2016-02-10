@@ -233,6 +233,7 @@ void arc10(){//physical test for segment path navigation
 
 }
 void aim(tank *v, int side) {
+	const int AIMSPEED=64;
 	int *ls=asense();
 	while(*(ls+1)<-lthreshold){
 		int turn;
@@ -306,7 +307,7 @@ void loadall(int speed) {
 	int elapsed=0;
 	const int limit =2000/10;
 	motorSet(MO_CONVEYER1,speed);
-	for(counter=0;counter<limit;counter++) {
+	for(elapsed=0;elapsed<limit;elapsed++) {
 		if(digitalRead(CON_SWITCH))
 		break;
 		delay(10);
