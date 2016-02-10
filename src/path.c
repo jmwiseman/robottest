@@ -6,7 +6,6 @@
 int currentsegment=-1;
 void p_status() {
 	static int callcount=0;
-	static int a;
 	callcount+=1;
 	if(callcount>10) {
 		printf("status: REMAIN: L:%d\t R:%d\n\r",CUR_DIST_L, CUR_DIST_R);

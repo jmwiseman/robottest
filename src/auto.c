@@ -55,7 +55,7 @@
  */
 int lss[3];
 int going=1;
-#define LSAMPLE_LEN
+#define LSAMPLE_LEN 3
 int lsamples[LSAMPLE_LEN];
 int lstav;
 #define lthreshold 300

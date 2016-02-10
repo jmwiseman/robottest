@@ -8,7 +8,7 @@
 int sb;
 void seeing_ball(Ultrasonic usL, Ultrasonic usR)
 {
-	int US_thresh = 10; //TODO: define in the correct file?
+	//int US_thresh = 10; //TODO: define in the correct file?
 	int dist_left = ultrasonicGet(usL); //cm
 	int dist_right = ultrasonicGet(usR); //cm
 	double dvx=cos(ltank.h);

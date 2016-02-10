@@ -65,8 +65,6 @@ double headingto(tank v, double x, double y) {//return heading to target from cu
 		   );
 }
 void printpos(tank *v) {
-	double x=f_center_x;
-	double y=f_center_y;
 //	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t tdist: %f\t thead:%f\t ",v->x,v->y,v->h,distanceto(*v,x,y),headingto(*v,x,y));
 	printf("POSITION: x:%f\t y:%f\t HEAD: %f\t ",v->x,v->y,v->h);
 }
