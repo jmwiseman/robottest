@@ -43,12 +43,19 @@ int inches(int l) {
 int gofor(int llen, int rlen, int turn, int forward) {
 	encoderReset(r_encoder);
 	encoderReset(l_encoder);
+	int counter=0;
+	const int ESPEED=2;
 	int ol=0;
 	int or=0;
 	dstat=0;
 	printf("going for %d\t%d degrees with dir %d\t%d\n\r",llen,rlen,turn,forward);
 #ifndef SIM
-	while((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen)){
+	for(counter=0;counter<llen*ESPEED&&counter<rlen*ESPEED;counter++){
+		if(!((abs(encoderGet(l_encoder))<llen &&abs(encoderGet(r_encoder))<rlen))){
+			printf("drove\n\r");
+			break;
+		}
+	
 		check_conveyer();
 		c_status("gofor",llen);
 		controldrive(turn,forward);
@@ -70,6 +77,11 @@ int gofor(int llen, int rlen, int turn, int forward) {
 int s(int l) {
 	simtank(&ctank,l,l);
 	return gofor(inches(l)/2,inches(l)/2,0,speed);	
+
+}
+int b(int l) {
+	simtank(&ctank,l,l);
+	return gofor(inches(l)/2,inches(l)/2,0,-speed);	
 
 }
 int r(int a){
@@ -103,6 +115,11 @@ void check_conveyer() {
 		sucking=0;
 	}
 }
+void bump() {
+	const int DIST=21;
+	s(DIST);
+	b(DIST);
+}
 
 void wander() {
 	printf("Begin to wander. \n\r");
@@ -121,8 +138,9 @@ void wander() {
 		printf("feet:%f\n\r",d);
 		d=d*12;
 		s(d);
-		l(((PI*(4)*.3)+0.1) FR);//should be 180 deg PI
+		l((PI*2) FR);//should be 180 deg or PI
 		s(d);
+		bump();
 		if(!sucking){ 
 			printf("firing because ball was found\n\r");
 			l(i FR);
@@ -159,7 +177,7 @@ void canned() {
 		-atan((W/2)/(2+(W/2)))
 	)FR);
 	s(9);
-	s(15);
+	bump();
 	suck(0);
 	fire(4);
 	load(0);
