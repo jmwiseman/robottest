@@ -215,22 +215,7 @@ void turntoline () {
 void driveincircle() {
 	controldrive(-AUTOSPEED,AUTOSPEED);
 }
-void arc10(){//physical test for segment path navigation
-	printf("test segment navigation2\n");
-	delay(1000);
-	int i=0;
-	resetsegments();
-	for(i=0;i<100;i++){
-		segmentnav(SEG_FORWARD);	
-		delay(50);
-	}
 
-	for(i=0;i<100;i++){
-		segmentnav(SEG_LEFT_BANK);	
-		delay(50);
-	}
-	undonav();
-}
 
 void elf() {
 	int bf=0;
