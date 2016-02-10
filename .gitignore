@@ -3,3 +3,4 @@
 sim/testauto.exe
 *.bin
 bin/output.elf
+common.mk
