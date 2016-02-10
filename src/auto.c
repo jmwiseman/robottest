@@ -320,6 +320,7 @@ void shoot(int speed) {
 }
 void autonomous() {
 //	drivetogoal(&ltank);
+	delay(5000);
 	canned(); 
 	wander();
 	printf("done autonave\n\r");
