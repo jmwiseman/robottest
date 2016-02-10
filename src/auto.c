@@ -306,11 +306,10 @@ void loadall(int speed) {
 	int elapsed=0;
 	const int limit =2000/10;
 	motorSet(MO_CONVEYER1,speed);
-	while(digitalRead(CON_SWITCH)||elapsed>limit){
-		controldrive(0,0);
-		elapsed=elapsed+1;
+	for(counter=0;counter<limit;counter++) {
+		if(digitalRead(CON_SWITCH))
+		break;
 		delay(10);
-
 	}
 	motorSet(MO_CONVEYER1,0);
 }
