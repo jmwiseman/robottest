@@ -66,5 +66,5 @@ void controldrive(int turn, int forward);
 
 #define C_TOL 15
 #define C_BUMP 15
-#define FLYCONTROLSPEED 1000
-
+#define FLYCONTROLSPEED 3400 //only works on full battery.  Overshoots if not full battery
+#define FLYHIGHSPEED 3900

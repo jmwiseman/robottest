@@ -99,8 +99,8 @@ void controldrive(int turn, int forward) {
 	//TODO: encoders are degrees not radians
 	setmotors();
 }
-int lfly=0;
-int rfly=0;
+int lfly=64;
+int rfly=64;
 /*
 int controlbang(int target, int current) {
 
@@ -173,39 +173,47 @@ void controlfly(int speed)
 		return;
 	}
 
-
 	int ltemp = lfly;
 	int rtemp = rfly;
 
-	imeGetVelocity(0,&lfly);
-	imeGetVelocity(1,&rfly);
+	imeGetVelocity(1,&lfly);
+	imeGetVelocity(0,&rfly);
 
 	printf("FLY SPEED: L %d\t R %d  go!\n\r",lfly,rfly);
 
 	int adjustment = 1;
+
 	if(lfly > -speed)
 	{
-		ltemp -= adjustment;
+		//printf("%d > %d decrease\n\r",lfly,-speed);
+		//ltemp -= adjustment;
+		ltemp = -128;
 	}
 	else if(lfly < -speed)
 	{
-		ltemp += adjustment;
+		//ltemp += adjustment;
+		ltemp = -40;
 	}
 
 	if(rfly > speed)
 	{
-		rtemp -= adjustment;
+		//rtemp -= adjustment;
+		rtemp = 40;
 	}
 	else if(rfly < speed)
 	{
-		rtemp += adjustment;
+		//printf("%d < %d increase\n\r",rfly,speed);
+		//rtemp += adjustment;
+		rtemp = 128;
 	}
 
 	lfly = ltemp;
 	rfly = rtemp;
 
-	motorSet(MO_FLY1,rtemp);
-	motorSet(MO_FLY2,ltemp);
+	printf("FLY POWER: L %d\t R %d  go!\n\r",lfly,rfly);
+
+	motorSet(MO_FLY1,rtemp);//
+	motorSet(MO_FLY2,ltemp);//
 }
 void opflywheel()
 {
@@ -213,6 +221,10 @@ void opflywheel()
 	//same as
 	//*
 	if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_UP) == true)
+	{
+		controlfly(FLYHIGHSPEED);
+	}
+	else if(joystickGetDigital(1,JOY_FLYWHEEL,JOY_DOWN) == true)
 	{
 		controlfly(FLYCONTROLSPEED);
 	}
