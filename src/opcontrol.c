@@ -38,6 +38,7 @@
 #include <main.h>
 #include <auto.h>
 #include <tank.h>
+#include <stdarg.h>
 float a;
 void stopdrive();
 /*
@@ -68,27 +69,36 @@ void setmotors(){
 	motorSet(MO_RIGHT2,rightspeed);
 	}
 }
-void controldrive(int turn, int forward) {
+void op_status(char *m,int v,...) {
 	static int callcount=0;
-	int lfly,rfly;
+	int i;
+	va_list argptr;
+	
 	if(callcount>10&&dstat==1) {
-		printf("%d\t%d\t",turn,forward);
+		printf("%40d \t%40d\n\r", ultrasonicGet(usl), ultrasonicGet(usr));
+		printf("%s ",m);
+		for( va_start(argptr,v); v;v--)
+			printf("%d\t",va_arg(argptr,int));
 		printpos(&ltank);
 		printball();
 		printf("\n\r");
-		imeGetVelocity(0,&lfly);
-		imeGetVelocity(1,&rfly);
-		printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
-	//	printf("DIST:%d\t%d\n\r",encoderGet(r_encoder),encoderGet(l_encoder));
-	//	non canned code
+		//imeGetVelocity(0,&lfly);
+		//imeGetVelocity(1,&rfly);
+		//printf("FLY SPEED: L %d\t R %d\n\r",lfly,rfly);
+		callcount=0;
+	}
+	callcount=callcount+1;
+}
+void controldrive(int turn, int forward) {
+	int lfly,rfly;
+	if(dstat==1) {
 		simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
 		encoderReset(r_encoder);
 		encoderReset(l_encoder);
+		op_status("controldrive",turn,forward);
 	
-		callcount=0;
 	}
 
-	callcount=callcount+1;
 	leftspeed=forward;
 	rightspeed=-1*forward;
 	leftspeed+=turn;
@@ -248,18 +258,7 @@ void opautotest() {//hook for quickly testing autonomous subnavigation
 	}
 }
 
-void print_us()
-{
-	static int callcount=0;
-	if(callcount >10){
-		printf("%40d \t%40d\n\r", ultrasonicGet(usL), ultrasonicGet(usR));
-		callcount=0;
-	}
-	callcount +=1;
-}
 void operatorControl() {
-	usR = ultrasonicInit(US_OUT_RIGHT, US_IN_RIGHT);
-	usL = ultrasonicInit(US_OUT_LEFT, US_IN_LEFT);
 	encoderReset(r_encoder);
 	encoderReset(l_encoder);
 	//autonomous();

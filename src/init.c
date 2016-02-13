@@ -32,6 +32,7 @@ void initialize() {
 	imecount=imeInitializeAll();
 	r_encoder = encoderInit(ENC_RIGHT_TOP,ENC_RIGHT_BOT,1);
 	l_encoder = encoderInit(ENC_LEFT_TOP,ENC_LEFT_BOT,0);
+	usr=ultrasonicInit(5,6);
 	pinMode(CON_SWITCH,INPUT);
 
 	//lcdinit(LCD_PORT);
