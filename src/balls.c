@@ -23,7 +23,7 @@ void seeing_ball(Ultrasonic usL, Ultrasonic usR)
 	}
 	 static int callcount=0;
 	if(callcount >10){
-		printf("%40d \t%40d\n\r", ultrasonicGet(usL), dist_right);
+	//	printf("%40d \t%40d\n\r", ultrasonicGet(usL), dist_right);
 		callcount=0;
 	}
 	callcount +=1;

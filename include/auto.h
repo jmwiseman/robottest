@@ -18,4 +18,5 @@ void shoot(int speed);
 void load(int speed);
 void loadall(int speed);
 void wander(void);
-
+void align(void);
+int aligned(void);

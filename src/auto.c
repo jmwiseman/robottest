@@ -316,6 +316,13 @@ void loadall(int speed) {
 	motorSet(MO_CONVEYER1,0);
 }
 
+void align() {
+	controldrive(ultrasonicGet(usl)-ultrasonicGet(usr),0);
+
+}
+int aligned(){
+	return 0;
+}
 void shoot(int speed) {
 	motorSet(MO_FLY1,speed);
 	motorSet(MO_FLY2,-speed);

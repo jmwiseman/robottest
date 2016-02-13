@@ -2,8 +2,6 @@
 #define JOY_TURN 1
 #define JOY_FORWARD 2
 #define JOY_INTAKE 5
-#define JOY_AUTOTEST_G 8
-#define JOY_AUTOTEST_B JOY_LEFT
 #define JOY_TARGET JOY_DOWN
 #define JOY_INTAKE_B 7
 #define JOY_FLYWHEEL 6
@@ -68,3 +66,6 @@ void controldrive(int turn, int forward);
 #define C_BUMP 15
 #define FLYCONTROLSPEED 3400 //only works on full battery.  Overshoots if not full battery
 #define FLYHIGHSPEED 3900
+//autotest buttons
+#define AUTO_LOAD_B 1,7,JOY_DOWN
+#define AUTO_ALIGN_B 1,8,JOY_DOWN

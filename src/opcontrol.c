@@ -69,16 +69,16 @@ void setmotors(){
 	motorSet(MO_RIGHT2,rightspeed);
 	}
 }
-void op_status(char *m,int v,...) {
+void op_status(char *m,int v, ...) {
 	static int callcount=0;
 	int i;
 	va_list argptr;
 	
 	if(callcount>10&&dstat==1) {
-		printf("%40d \t%40d\n\r", ultrasonicGet(usl), ultrasonicGet(usr));
+		printf("%40d \t%40d", ultrasonicGet(usl),ultrasonicGet(usr));
 		printf("%s ",m);
 		for( va_start(argptr,v); v;v--)
-			printf("%d\t",va_arg(argptr,int));
+			printf("%4d\t",va_arg(argptr,int));
 		printpos(&ltank);
 		printball();
 		printf("\n\r");
@@ -95,7 +95,7 @@ void controldrive(int turn, int forward) {
 		simtank(&ltank,encoderGet(l_encoder),encoderGet(r_encoder));
 		encoderReset(r_encoder);
 		encoderReset(l_encoder);
-		op_status("controldrive",turn,forward);
+		op_status("controldrive",turn,forward,ultrasonicGet(usl),ultrasonicGet(usr));
 	
 	}
 
@@ -245,16 +245,14 @@ void opflywheel()
 	//*/
 }
 void opautotest() {//hook for quickly testing autonomous subnavigation
-	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_AUTOTEST_B)){
-		encoderReset(l_encoder);
-		encoderReset(r_encoder);
-		ltank.x=0;
-		ltank.y=0;
-		ltank.h=0;
-	}
-	if(joystickGetDigital(1,JOY_AUTOTEST_G,JOY_TARGET)){
+	if(joystickGetDigital(AUTO_LOAD_B)){
 		printf("op_load_all\n\r");
 		loadall(CONVEYER_SPEED);
+	}
+
+	if(joystickGetDigital(AUTO_ALIGN_B)){
+		printf("op_align\n\r");
+		align();
 	}
 }
 
